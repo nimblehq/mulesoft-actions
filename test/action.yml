@@ -17,6 +17,7 @@ runs:
   steps:
     - name: Test with Maven
       run: mvn test --settings ${{ inputs.maven_settings_path }}
+      shell: bash
       env:
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}
