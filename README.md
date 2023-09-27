@@ -8,7 +8,7 @@
 </p>
 
 <h3 align="center">Mulesoft GitHub Actions</h3>
-<p>A collection of composite GitHub actions designed specifically for Mulesoft integration projects. These actions provide pre-built automation steps and workflows to streamline development, testing, and deployment processes.</p>
+<p>A collection of composite GitHub actions designed specifically for Mulesoft projects. These actions provide pre-built automation steps and workflows to streamline development, testing, and deployment processes.</p>
 
 ## Mulesoft Actions
 
