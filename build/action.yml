@@ -1,0 +1,31 @@
+name: Build
+description: Build with Maven and upload build artifacts
+inputs:
+  artifact_name:
+    description: Artifact name
+    default: build-artifacts
+outputs:
+  artifact_name:
+    description: Artifact name
+    value: ${{ inputs.artifact_name }}
+
+runs:
+  using: composite
+  steps:
+    - name: Build with Maven
+      shell: bash
+      run: mvn -B package --file pom.xml -DskipMunitTests
+
+    - name: Stamp artifact file name with commit hash
+      shell: bash
+      run: |
+        currentArtifactName=$(ls target/*.jar | head -1)
+        commitHash=$(git rev-parse --short "$GITHUB_SHA")
+        newArtifactName=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
+        mv $currentArtifactName $newArtifactName
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.artifact_name }}
+        path: target/*.jar
