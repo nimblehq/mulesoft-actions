@@ -1,0 +1,29 @@
+name: Run MUnit tests
+description: Run MUnit tests
+inputs:
+  nexus_username:
+    description: Nexus enterprise repository username
+    required: true
+  nexus_password:
+    description: Nexus enterprise repository password
+    required: true
+  maven_settings_path:
+    description: Maven settings file path
+    required: true
+    default: .maven/settings.xml
+
+runs:
+  using: composite
+  steps:
+    - name: Test with Maven
+      run: mvn test --settings ${{ inputs.maven_settings_path }}
+      shell: bash
+      env:
+        NEXUS_USERNAME: ${{ inputs.nexus_username }}
+        NEXUS_PASSWORD: ${{ inputs.nexus_password }}
+
+    - name: Upload MUnit reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: munit-test-reports
+        path: target/site/munit/coverage/

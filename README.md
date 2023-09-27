@@ -1,12 +1,97 @@
-# Git Repository Template
+<p align="center">
+  <a href="https://nimblehq.co/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://assets.nimblehq.co/logo/dark/logo-dark-text-320.png">
+      <img alt="Nimble logo" src="https://assets.nimblehq.co/logo/light/logo-light-text-320.png">
+    </picture>
+  </a>
+</p>
 
-Project repository template to set up all public projects at [Nimble](https://nimblehq.co/)
+<h3 align="center">Mulesoft GitHub Actions</h3>
+<p>A collection of composite GitHub actions designed specifically for Mulesoft projects. These actions provide pre-built automation steps and workflows to streamline development, testing, and deployment processes.</p>
 
-## Usage
+## Mulesoft Actions
 
-Clone the repository
+### Set up Mulesoft environment
+Action to set up the Mulesoft environment. See [setup/action.yml](setup/action.yml)
 
-`git clone git@github.com:nimblehq/git-template.git`
+#### Usage
+
+```yml
+- uses: nimblehq/mulesoft-actions/setup@main
+  with:
+    # Version of Java to use
+    # Default: 8
+    java_version: 8
+
+    # Distribution of Java to use
+    # Default: zulu
+    java_distribution: zulu
+```
+
+Basic:
+
+```yml
+name: My workflow
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Mulesoft environment
+        uses: nimblehq/mulesoft-actions/setup@main
+```
+
+### Run MUnit tests
+Action to run MUnit tests. See [test/action.yml](test/action.yml)
+
+#### Usage
+
+> [!IMPORTANT]\
+> The Nexus enterprise repository username and password are required to run MUnit tests on the CI server. Refer to this [document](https://docs.mulesoft.com/mule-runtime/4.4/maven-reference#configure-mule-repositories) for more information.
+
+```yml
+- uses: nimblehq/mulesoft-actions/test@main
+  with:
+    # Nexus username
+    # Required
+    nexus_username: ${{ secrets.NEXUS_USERNAME }}
+
+    # Nexus password
+    # Required
+    nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+
+    # Maven settings file path
+    # Required
+    # Default: .maven/settings.xml
+    maven_settings_path: .maven/settings.xml
+```
+
+Basic:
+
+```yml
+name: My workflow
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Mulesoft environment
+        uses: nimblehq/mulesoft-actions/setup@main
+
+      - name: Run MUnit tests
+        uses: nimblehq/mulesoft-actions/test@main
+        with:
+          nexus_username: ${{ secrets.NEXUS_USERNAME }}
+          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          maven_settings_path: .maven/settings.xml
+```
 
 ## License
 
