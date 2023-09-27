@@ -19,7 +19,7 @@ Action to set up the Mulesoft environment. See [setup/action.yml](setup/action.y
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/setup@main
+- uses: nimblehq/mulesoft-actions/setup@v1
   with:
     # Version of Java to use
     # Default: 8
@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@main
+        uses: nimblehq/mulesoft-actions/setup@v1
 ```
 
 ### Run MUnit tests
@@ -56,7 +56,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
 > The Nexus enterprise repository username and password are required to run MUnit tests on the CI server. Refer to this [document](https://docs.mulesoft.com/mule-runtime/4.4/maven-reference#configure-mule-repositories) for more information.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/test@main
+- uses: nimblehq/mulesoft-actions/test@v1
   with:
     # Nexus username
     # Required
@@ -89,10 +89,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@main
+        uses: nimblehq/mulesoft-actions/setup@v1
 
       - name: Run MUnit tests
-        uses: nimblehq/mulesoft-actions/test@main
+        uses: nimblehq/mulesoft-actions/test@v1
         with:
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}

@@ -1,0 +1,37 @@
+name: Deploy to CloudHub
+description: Deploy to CloudHub with Maven
+inputs:
+  artifact_name:
+    description: Artifact name
+    default: build-artifacts
+  connected_app_client_id:
+    description: CloudHub connected app client ID
+    required: true
+  connected_app_client_secret:
+    description: CloudHub connected app client secret
+    required: true
+  cloudhub_environment:
+    description: CloudHub environment
+    required: true
+  cloudhub_application_name:
+    description: CloudHub application name
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ inputs.artifact_name }}
+
+    - name: Deploy to CloudHub
+      shell: bash
+      run: |
+        artifactName=$(ls *.jar | head -1)
+        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName}
+      env:
+        CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
+        CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
+        CLOUDHUB_ENVIRONMENT: ${{ inputs.cloudhub_environment }}
+        CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
