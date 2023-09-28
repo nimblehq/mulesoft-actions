@@ -37,7 +37,7 @@ runs:
       shell: bash
       run: |
         artifactName=$(ls target/*.jar | head -1)
-        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName}
+        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName} -X -e
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
