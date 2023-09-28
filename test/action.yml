@@ -11,9 +11,9 @@ inputs:
     description: Maven settings file path
     required: true
     default: .maven/settings.xml
-  upload_reports:
+  upload_coverage_reports:
     description: Upload MUnit reports to GitHub Actions Artifacts
-    default: false
+    default: 'false'
 
 runs:
   using: composite
@@ -27,7 +27,7 @@ runs:
 
     - name: Upload MUnit reports
       uses: actions/upload-artifact@v3
-      if: inputs.upload_reports == 'true'
+      if: inputs.upload_coverage_reports == 'true'
       with:
         name: munit-test-reports
         path: target/site/munit/coverage/

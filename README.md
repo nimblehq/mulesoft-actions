@@ -73,7 +73,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
 
     # Upload MUnit reports to GitHub Actions Artifacts
     # Default: false
-    upload_reports: false
+    upload_coverage_reports: false
 ```
 
 Basic:
