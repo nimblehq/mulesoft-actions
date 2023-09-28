@@ -13,6 +13,7 @@
 ## Mulesoft Actions
 
 ### Set up Mulesoft environment
+
 Action to set up the Mulesoft environment. See [setup/action.yml](setup/action.yml)
 
 #### Usage
@@ -46,6 +47,7 @@ jobs:
 ```
 
 ### Run MUnit tests
+
 Action to run MUnit tests. See [test/action.yml](test/action.yml)
 
 #### Usage
@@ -68,6 +70,10 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
     # Required
     # Default: .maven/settings.xml
     maven_settings_path: .maven/settings.xml
+
+    # Upload MUnit reports to GitHub Actions Artifacts
+    # Default: false
+    upload_reports: false
 ```
 
 Basic:
@@ -100,6 +106,7 @@ This project is Copyright (c) 2014 and onwards Nimble. It is free software and m
 [LICENSE]: /LICENSE
 
 ## About
+
 <a href="https://nimblehq.co/">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://assets.nimblehq.co/logo/dark/logo-dark-text-160.png">
