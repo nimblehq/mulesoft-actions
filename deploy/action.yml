@@ -31,11 +31,12 @@ runs:
       if: inputs.download_artifact == 'true'
       with:
         name: ${{ inputs.artifact_name }}
+        path: target
 
     - name: Deploy to CloudHub
       shell: bash
       run: |
-        artifactName=$(ls *.jar | head -1)
+        artifactName=$(ls target/*.jar | head -1)
         mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
