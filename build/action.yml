@@ -4,6 +4,9 @@ inputs:
   artifact_name:
     description: Artifact name
     default: build-artifacts
+  upload_artifacts:
+    description: Upload build artifacts
+    default: 'false'
 outputs:
   artifact_name:
     description: Artifact name
@@ -26,6 +29,7 @@ runs:
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
+      if: inputs.upload_artifacts == 'true'
       with:
         name: ${{ inputs.artifact_name }}
         path: target/*.jar

@@ -4,6 +4,9 @@ inputs:
   artifact_name:
     description: Artifact name
     default: build-artifacts
+  download_artifact:
+    description: Download artifact
+    default: 'false'
   connected_app_client_id:
     description: CloudHub connected app client ID
     required: true
@@ -25,6 +28,7 @@ runs:
   steps:
     - name: Download artifact
       uses: actions/download-artifact@v3
+      if: inputs.download_artifact == 'true'
       with:
         name: ${{ inputs.artifact_name }}
 
