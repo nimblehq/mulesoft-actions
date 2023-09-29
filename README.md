@@ -158,8 +158,8 @@ Workflow to run MUnit tests for Mulesoft projects. See [.github/workflows/shared
     maven_settings_path: .maven/settings.xml
 
     # Upload MUnit reports to GitHub Actions Artifacts
-    # Default: false
-    upload_coverage_reports: false
+    # Default: true
+    upload_coverage_reports: true
 
   secrets:
     # Nexus username
@@ -177,9 +177,9 @@ Basic:
 name: My workflow
 on: [push, pull_request]
 jobs:
-  call_test:
+  trigger_test:
     uses: nimblehq/mulesoft-actions/.github/workflows/shared_test.yml@v1
-    name: Call test workflow
+    name: Trigger the test workflow
     with:
       upload_coverage_reports: true
     secrets:

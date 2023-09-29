@@ -6,11 +6,12 @@ on:
       maven_settings_path:
         description: Maven settings file path
         type: string
+        required: true
         default: .maven/settings.xml
       upload_coverage_reports:
         description: Upload MUnit reports to GitHub Actions Artifacts
         type: boolean
-        default: false
+        default: true
     secrets:
       NEXUS_USERNAME:
         required: true
