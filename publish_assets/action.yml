@@ -4,10 +4,10 @@ inputs:
   org_id:
     description: AnyPoint Organization ID or Business Group ID
     required: true
-  client_id:
+  connected_app_client_id:
     description: Connected App Client ID
     required: true
-  client_secret:
+  connected_app_client_secret:
     description: Connected App Client Secret
     required: true
 
@@ -20,6 +20,6 @@ runs:
     - name: Publish API docs to Anypoint Exchange
       env:
         ORG_ID: ${{ inputs.org_id }}
-        CLIENT_ID: ${{ inputs.client_id }}
-        CLIENT_SECRET: ${{ inputs.client_secret }}
-      run: api-catalog publish-asset -d catalog.yaml --organization="$ORG_ID" --client_id="$CLIENT_ID" --client_secret="$CLIENT_SECRET"
+        CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
+        CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
+      run: api-catalog publish-asset -d catalog.yaml --organization="$ORG_ID" --client_id="$CONNECTED_APP_CLIENT_ID" --client_secret="$CONNECTED_APP_CLIENT_SECRET"

@@ -114,11 +114,11 @@ Action to Publish Assets to Anypoint Exchange. See [publish_assets/action.yml](p
 
     # Connected App Client ID
     # Required
-    client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+    connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
 
     # Connected App Client Secret
     # Required
-    client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+    connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
 ```
 
 Basic:
@@ -137,8 +137,8 @@ jobs:
         uses: nimblehq/mulesoft-actions/publish_assets@main
         with:
           org_id: ${{ secrets.BUSINESS_GROUP_ID }}
-          client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
-          client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+          connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+          connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
 ```
 
 ## License
