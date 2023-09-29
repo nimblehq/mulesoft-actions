@@ -101,32 +101,24 @@ jobs:
 
 ### Publish Assets to Anypoint Exchange
 
-Action to Publish Assets to Anypoint Exchange. See [test/action.yml](test/action.yml)
+Action to Publish Assets to Anypoint Exchange. See [publish_assets/action.yml](publish_assets/action.yml)
 
 #### Usage
 
-> [!IMPORTANT]\
-> The Nexus enterprise repository username and password are required to run MUnit tests on the CI server. Refer to this [document](https://docs.mulesoft.com/mule-runtime/4.4/maven-reference#configure-mule-repositories) for more information.
-
 ```yml
-- uses: nimblehq/mulesoft-actions/test@main
+- uses: nimblehq/mulesoft-actions/publish_assets@main
   with:
-    # Nexus username
+    # AnyPoint Organization ID or Business Group ID
     # Required
-    nexus_username: ${{ secrets.NEXUS_USERNAME }}
+    org_id: ${{ secrets.BUSINESS_GROUP_ID }}
 
-    # Nexus password
+    # Connected App Client ID
     # Required
-    nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+    client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
 
-    # Maven settings file path
+    # Connected App Client Secret
     # Required
-    # Default: .maven/settings.xml
-    maven_settings_path: .maven/settings.xml
-
-    # Upload MUnit reports to GitHub Actions Artifacts
-    # Default: false
-    upload_coverage_reports: false
+    client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
 ```
 
 Basic:
@@ -141,15 +133,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@main
-
-      - name: Run MUnit tests
-        uses: nimblehq/mulesoft-actions/test@main
+      - name: Publish Assets to Anypoint Exchange
+        uses: nimblehq/mulesoft-actions/publish_assets@main
         with:
-          nexus_username: ${{ secrets.NEXUS_USERNAME }}
-          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
-          maven_settings_path: .maven/settings.xml
+          org_id: ${{ secrets.BUSINESS_GROUP_ID }}
+          client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+          client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
 ```
 
 ## License

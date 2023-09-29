@@ -1,5 +1,5 @@
-name: Publish Asset to Exchange
-description: Publish the documentation and the asset to AnyPoint Exchange
+name: Publish Assets to Exchange
+description: Publish the assets to AnyPoint Exchange
 inputs:
   org_id:
     description: AnyPoint Organization ID or Business Group ID
