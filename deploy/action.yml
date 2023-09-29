@@ -19,6 +19,8 @@ inputs:
   cloudhub_application_name:
     description: CloudHub application name
     required: true
+  cloudhub_business_group_id:
+    description: CloudHub business group ID
   mule_version:
     description: Mule version
     default: 4.4.0
@@ -43,4 +45,5 @@ runs:
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
         CLOUDHUB_ENVIRONMENT: ${{ inputs.cloudhub_environment }}
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
+        CLOUDHUB_BUSINESS_GROUP_ID: ${{ inputs.cloudhub_business_group_id }}
         MULE_VERSION: ${{ inputs.mule_version }}
