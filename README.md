@@ -99,6 +99,48 @@ jobs:
           maven_settings_path: .maven/settings.xml
 ```
 
+### Publish Assets to Anypoint Exchange
+
+Action to Publish Assets to Anypoint Exchange. See [publish_assets/action.yml](publish_assets/action.yml)
+
+#### Usage
+
+```yml
+- uses: nimblehq/mulesoft-actions/publish_assets@main
+  with:
+    # AnyPoint Organization ID or Business Group ID
+    # Required
+    org_id: ${{ secrets.BUSINESS_GROUP_ID }}
+
+    # Connected App Client ID
+    # Required
+    connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+
+    # Connected App Client Secret
+    # Required
+    connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+```
+
+Basic:
+
+```yml
+name: My workflow
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish Assets to Anypoint Exchange
+        uses: nimblehq/mulesoft-actions/publish_assets@main
+        with:
+          org_id: ${{ secrets.BUSINESS_GROUP_ID }}
+          connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+          connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+```
+
 ## License
 
 This project is Copyright (c) 2014 and onwards Nimble. It is free software and may be redistributed under the terms specified in the [LICENSE] file.
