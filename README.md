@@ -8,7 +8,7 @@
 </p>
 
 <h3 align="center">Mulesoft GitHub Actions</h3>
-<p> This contains a collection of <a href="#mulesoft-actions">Mulesoft Actions</a> and a pre-defined <a href="#mulesoft-shared-workflows">Mulesoft Shared Workflows</a> that speed up the development process of Mulesoft projects. The pre-defined workflows are a ready-to-use solution which combines the Actions for running task like MUnit tests or deploying Mulesoft projects.</p>
+<p>A collection of <a href="#mulesoft-actions">Mulesoft Actions</a> and pre-defined <a href="#mulesoft-shared-workflows">Mulesoft Shared Workflows</a> that speed up the development process of Mulesoft projects. The pre-defined workflows are a ready-to-use solution which combines the Actions for running task like MUnit tests or deploying Mulesoft projects.</p>
 
 ## Mulesoft Actions
 
