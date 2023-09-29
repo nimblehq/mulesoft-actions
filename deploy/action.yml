@@ -21,6 +21,9 @@ inputs:
     required: true
   cloudhub_business_group_id:
     description: CloudHub business group ID
+  cloudhub_region:
+    description: CloudHub region
+    default: ap-southeast-1
   mule_version:
     description: Mule version
     default: 4.4.0
@@ -46,4 +49,5 @@ runs:
         CLOUDHUB_ENVIRONMENT: ${{ inputs.cloudhub_environment }}
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
         CLOUDHUB_BUSINESS_GROUP_ID: ${{ inputs.cloudhub_business_group_id }}
+        CLOUDHUB_REGION: ${{ inputs.cloudhub_region }}
         MULE_VERSION: ${{ inputs.mule_version }}
