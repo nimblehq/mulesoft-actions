@@ -13,7 +13,7 @@ inputs:
     default: .maven/settings.xml
   upload_coverage_reports:
     description: Upload MUnit reports to GitHub Actions Artifacts
-    default: 'false'
+    default: 'true'
 
 runs:
   using: composite
