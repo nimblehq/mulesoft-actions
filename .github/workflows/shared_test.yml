@@ -1,0 +1,31 @@
+name: Test
+
+on:
+  workflow_call:
+    secrets:
+      NEXUS_USERNAME:
+        required: true
+      NEXUS_PASSWORD:
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Run MUnit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Mulesoft environment
+        uses: nimblehq/mulesoft-actions/setup@v1
+
+      - name: Run tests
+        uses: nimblehq/mulesoft-actions/test@v1
+        with:
+          nexus_username: ${{ secrets.NEXUS_USERNAME }}
+          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          maven_settings_path: .maven/settings.xml
