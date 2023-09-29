@@ -2,6 +2,14 @@ name: Test
 
 on:
   workflow_call:
+    inputs:
+      maven_settings_path:
+        description: Maven settings file path
+        type: string
+      upload_coverage_reports:
+        description: Upload MUnit reports to GitHub Actions Artifacts
+        type: boolean
+        default: false
     secrets:
       NEXUS_USERNAME:
         required: true
@@ -14,7 +22,7 @@ concurrency:
 
 jobs:
   test:
-    name: Run MUnit tests
+    name: Run shared tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,9 +31,10 @@ jobs:
       - name: Set up Mulesoft environment
         uses: nimblehq/mulesoft-actions/setup@v1
 
-      - name: Run tests
+      - name: Run MUnit tests
         uses: nimblehq/mulesoft-actions/test@v1
         with:
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
-          maven_settings_path: .maven/settings.xml
+          maven_settings_path: ${{ inputs.maven_settings_path }}
+          upload_coverage_reports: ${{ inputs.upload_coverage_reports }}
