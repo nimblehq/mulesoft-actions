@@ -15,9 +15,11 @@ runs:
   using: composite
   steps:
     - name: Install API Catalog CLI
+      shell: bash
       run: npm install -g api-catalog-cli@1.1.0
 
     - name: Publish API docs to Anypoint Exchange
+      shell: bash
       env:
         ORG_ID: ${{ inputs.org_id }}
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
