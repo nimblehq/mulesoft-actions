@@ -99,6 +99,59 @@ jobs:
           maven_settings_path: .maven/settings.xml
 ```
 
+### Publish Assets to Anypoint Exchange
+
+Action to Publish Assets to Anypoint Exchange. See [test/action.yml](test/action.yml)
+
+#### Usage
+
+> [!IMPORTANT]\
+> The Nexus enterprise repository username and password are required to run MUnit tests on the CI server. Refer to this [document](https://docs.mulesoft.com/mule-runtime/4.4/maven-reference#configure-mule-repositories) for more information.
+
+```yml
+- uses: nimblehq/mulesoft-actions/test@main
+  with:
+    # Nexus username
+    # Required
+    nexus_username: ${{ secrets.NEXUS_USERNAME }}
+
+    # Nexus password
+    # Required
+    nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+
+    # Maven settings file path
+    # Required
+    # Default: .maven/settings.xml
+    maven_settings_path: .maven/settings.xml
+
+    # Upload MUnit reports to GitHub Actions Artifacts
+    # Default: false
+    upload_coverage_reports: false
+```
+
+Basic:
+
+```yml
+name: My workflow
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Mulesoft environment
+        uses: nimblehq/mulesoft-actions/setup@main
+
+      - name: Run MUnit tests
+        uses: nimblehq/mulesoft-actions/test@main
+        with:
+          nexus_username: ${{ secrets.NEXUS_USERNAME }}
+          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          maven_settings_path: .maven/settings.xml
+```
+
 ## License
 
 This project is Copyright (c) 2014 and onwards Nimble. It is free software and may be redistributed under the terms specified in the [LICENSE] file.
