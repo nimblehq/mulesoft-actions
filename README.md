@@ -8,7 +8,7 @@
 </p>
 
 <h3 align="center">Mulesoft GitHub Actions</h3>
-<p>A collection of composite GitHub actions designed specifically for Mulesoft projects. These actions provide pre-built automation steps and workflows to streamline development, testing, and deployment processes.</p>
+<p> This contains a collection of <a href="#mulesoft-actions">Mulesoft Actions</a> and a pre-defined <a href="#mulesoft-shared-workflows">Mulesoft Shared Workflows</a> that speed up the development process of Mulesoft projects. The pre-defined workflows are a ready-to-use solution which combines the Actions for running task like MUnit tests or deploying Mulesoft projects.</p>
 
 ## Mulesoft Actions
 
@@ -139,6 +139,52 @@ jobs:
           org_id: ${{ secrets.BUSINESS_GROUP_ID }}
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+```
+
+## Mulesoft Shared Workflows
+
+### Shared Test Workflow
+
+Workflow to run MUnit tests for Mulesoft projects. See [.github/workflows/shared_test.yml](.github/workflows/shared_test.yml)
+
+#### Usage
+
+```yml
+- uses: nimblehq/mulesoft-actions/.github/workflows/shared_test.yml@v1
+  with:
+    # Maven settings file path
+    # Required
+    # Default: .maven/settings.xml
+    maven_settings_path: .maven/settings.xml
+
+    # Upload MUnit reports to GitHub Actions Artifacts
+    # Default: false
+    upload_coverage_reports: false
+
+  secrets:
+    # Nexus username
+    # Required
+    NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+
+    # Nexus password
+    # Required
+    NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+```
+
+Basic:
+
+```yml
+name: My workflow
+on: [push, pull_request]
+jobs:
+  call_test:
+    uses: nimblehq/mulesoft-actions/.github/workflows/shared_test.yml@v1
+    name: Call test workflow
+    with:
+      upload_coverage_reports: true
+    secrets:
+      NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+      NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 ```
 
 ## License
