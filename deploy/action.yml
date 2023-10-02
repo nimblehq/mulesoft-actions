@@ -24,15 +24,16 @@ inputs:
   cloudhub_region:
     description: CloudHub region
     default: ap-southeast-1
+  cloudhub_application_name:
+    description: CloudHub application name
+    required: true
   mule_version:
     description: Mule version
     default: 4.4.0
   mule_environment:
     description: Mule environment
-    default: prod
-  application_name:
-    description: Application name
     required: true
+    default: prod
   encryption_key:
     description: Encryption key
     required: true
@@ -46,13 +47,6 @@ runs:
       with:
         name: ${{ inputs.artifact_name }}
 
-    - name: Convert AWS region to short abbreviation
-      uses: cloudposse/github-action-aws-region-reduction-map@main
-      id: aws_map
-      with:
-        region: ${{ inputs.cloudhub_region }}
-        format: short
-
     - name: Deploy to CloudHub
       shell: bash
       run: |
@@ -64,7 +58,7 @@ runs:
         CLOUDHUB_ENVIRONMENT: ${{ inputs.cloudhub_environment }}
         CLOUDHUB_BUSINESS_GROUP_ID: ${{ inputs.cloudhub_business_group_id }}
         CLOUDHUB_REGION: ${{ inputs.cloudhub_region }}
+        CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
         MULE_VERSION: ${{ inputs.mule_version }}
         MULE_ENVIRONMENT: ${{ inputs.mule_environment }}
-        CLOUDHUB_APPLICATION_NAME: ${{ inputs.application_name }}-${{ steps.aws_map.outputs.result }}-${{ inputs.mule_environment }}
         ENCRYPTION_KEY: ${{ inputs.encryption_key }}

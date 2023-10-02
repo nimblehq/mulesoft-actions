@@ -208,6 +208,10 @@ Action to deploy to CloudHub. See [deploy/action.yml](deploy/action.yml)
     # Required
     cloudhub_region: ${{ secrets.CLOUDHUB_REGION }}
 
+    # CloudHub application name
+    # Required
+    cloudhub_application_name: ${{ secrets.CLOUDHUB_APPLICATION_NAME }}
+
     # Mule version
     # Default: 4.4.0
     mule_version: 4.4.0
@@ -215,12 +219,6 @@ Action to deploy to CloudHub. See [deploy/action.yml](deploy/action.yml)
     # Mule environment
     # Default: production
     mule_environment: production
-
-    # Application name
-    # This will be used as the application name in CloudHub along with the CloudHub region and Mule environment
-    # Example: my-app-my-region-my-environment
-    # Required
-    application_name: ${{ secrets.CLOUDHUB_APPLICATION_NAME }}
 
     # Encryption key
     # Required
