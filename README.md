@@ -144,7 +144,7 @@ Action to deploy to CloudHub. See [deploy/action.yml](deploy/action.yml)
 
 > [!IMPORTANT]\
 > This action requires a built artifact from the `build` action.
-Before deploying to CloudHub, you must configure the `cloudHubDeployment` element. Inside the `org.mule.tools.maven` plugin element in the project’s `pom.xml` file, add the following configuration:
+> Before deploying to CloudHub, you must configure the `cloudHubDeployment` element. Inside the `org.mule.tools.maven` plugin element in the project’s `pom.xml` file, add the following configuration:
 
 ```xml
 <plugin>
@@ -217,6 +217,10 @@ Before deploying to CloudHub, you must configure the `cloudHubDeployment` elemen
     # Example: my-app-my-region-my-environment
     # Required
     application_name: ${{ secrets.CLOUDHUB_APPLICATION_NAME }}
+
+    # Encryption key
+    # Required
+    encryption_key: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 Basic:
@@ -251,6 +255,7 @@ jobs:
           application_name: ${{ secrets.APPLICATION_NAME }}
           connected_app_client_id: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
+          encryption_key: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 ### Publish Assets to Anypoint Exchange
@@ -366,4 +371,7 @@ Want to join? [Check out our Jobs][jobs]!
 [community]: https://github.com/nimblehq
 [hire]: https://nimblehq.co/
 [jobs]: https://jobs.nimblehq.co/
+
+```
+
 ```

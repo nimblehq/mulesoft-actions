@@ -30,6 +30,9 @@ inputs:
   application_name:
     description: Application name
     required: true
+  encryption_key:
+    description: Encryption key
+    required: true
 
 runs:
   using: composite
@@ -62,3 +65,4 @@ runs:
         MULE_VERSION: ${{ inputs.mule_version }}
         MULE_ENVIRONMENT: ${{ inputs.mule_environment }}
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.application_name }}-${{ steps.aws_map.outputs.result }}-${{ inputs.mule_environment }}
+        ENCRYPTION_KEY: ${{ inputs.encryption_key }}
