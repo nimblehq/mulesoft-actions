@@ -27,14 +27,14 @@ runs:
         newArtifactName=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
         mv $currentArtifactName $newArtifactName
         if [ -z "${{ inputs.artifact_name }}" ]; then
-          echo "artifact_name=${newArtifactName}" >> $GITHUB_OUTPUT
+          echo "gh_artifact_name=$(echo $newArtifactName | cut -d"/" -f2 | sed "s/.jar//g")" >> $GITHUB_OUTPUT
         else
-          echo "artifact_name=${inputs.artifact_name}" >> $GITHUB_OUTPUT
+          echo "gh_artifact_name=${inputs.artifact_name}" >> $GITHUB_OUTPUT
         fi
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       if: inputs.use_artifacts == 'true'
       with:
-        name: ${{ steps.artifact_name.outputs.artifact_name }}
+        name: ${{ steps.artifact_name.outputs.gh_artifact_name }}
         path: target/*.jar
