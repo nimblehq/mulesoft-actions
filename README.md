@@ -113,7 +113,7 @@ Action to build with Maven. See [build/action.yml](build/action.yml)
     use_artifacts: true
 
     # Artifact name
-    # Default: build-artifacts
+    # Default: The name of the build and commit hash
     artifact_name: build-artifacts
 ```
 

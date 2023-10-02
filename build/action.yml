@@ -5,8 +5,7 @@ inputs:
     description: Upload build artifacts
     default: 'true'
   artifact_name:
-    description: Artifact name
-    default: build-artifacts
+    description: 'Artifact name. Default: The name of the build and commit hash'
 outputs:
   artifact_name:
     description: Artifact name
@@ -21,15 +20,21 @@ runs:
 
     - name: Stamp artifact file name with commit hash
       shell: bash
+      id: artifact_name
       run: |
         currentArtifactName=$(ls target/*.jar | head -1)
         commitHash=$(git rev-parse --short "$GITHUB_SHA")
         newArtifactName=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
         mv $currentArtifactName $newArtifactName
+        if [ -z "${{ inputs.artifact_name }}" ]; then
+          echo "artifact_name=${newArtifactName}" >> $GITHUB_OUTPUT
+        else
+          echo "artifact_name=${inputs.artifact_name}" >> $GITHUB_OUTPUT
+        fi
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       if: inputs.use_artifacts == 'true'
       with:
-        name: ${{ inputs.artifact_name }}
+        name: ${{ steps.artifact_name.outputs.artifact_name }}
         path: target/*.jar
