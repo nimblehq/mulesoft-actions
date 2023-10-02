@@ -9,7 +9,7 @@ inputs:
 outputs:
   artifact_name:
     description: Artifact name
-    value: ${{ inputs.artifact_name }}
+    value: ${{ steps.artifact_name.outputs.gh_artifact_name }}
 
 runs:
   using: composite
@@ -26,6 +26,8 @@ runs:
         commitHash=$(git rev-parse --short "$GITHUB_SHA")
         newArtifactName=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
         mv $currentArtifactName $newArtifactName
+        echo "artifact_name=$newArtifactName" >> $GITHUB_OUTPUT
+
         if [ -z "${{ inputs.artifact_name }}" ]; then
           echo "gh_artifact_name=$(echo $newArtifactName | cut -d"/" -f2 | sed "s/.jar//g")" >> $GITHUB_OUTPUT
         else
@@ -37,4 +39,4 @@ runs:
       if: inputs.use_artifacts == 'true'
       with:
         name: ${{ steps.artifact_name.outputs.gh_artifact_name }}
-        path: target/*.jar
+        path: ${{ steps.artifact_name.outputs.artifact_name }}
