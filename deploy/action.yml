@@ -7,6 +7,9 @@ inputs:
   artifact_name:
     description: Artifact name
     default: build-artifacts
+  mule_artifact_name:
+    description: Mule artifact name
+    required: true
   connected_app_client_id:
     description: CloudHub connected app client ID
     required: true
@@ -53,7 +56,7 @@ runs:
     - name: Deploy to CloudHub
       shell: bash
       run: |
-        artifactName=$(ls **/*.jar | head -1)
+        artifactName=${{ inputs.mule_artifact_name }}
         mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}

@@ -184,6 +184,10 @@ Action to deploy to CloudHub. See [deploy/action.yml](deploy/action.yml)
     # Default: build-artifacts
     artifact_name: build-artifacts
 
+    # Mule application artifact name
+    # Required
+    mule_artifact_name: ${{ steps.build.outputs.mule_artifact_name }}
+
     # CloudHub connected app client ID
     # Required
     connected_app_client_id: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
@@ -371,7 +375,3 @@ Want to join? [Check out our Jobs][jobs]!
 [community]: https://github.com/nimblehq
 [hire]: https://nimblehq.co/
 [jobs]: https://jobs.nimblehq.co/
-
-```
-
-```
