@@ -1,0 +1,90 @@
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      deploy_environment:
+        type: string
+        required: true
+      application_name:
+        type: string
+        required: true
+      cloudhub_region:
+        type: string
+        required: true
+      cloudhub_environment:
+        type: string
+        required: true
+      mule_environment:
+        type: string
+        required: true
+    secrets:
+      CONTD_APP_CLIENT_ID:
+        required: true
+      CONTD_APP_CLIENT_SECRET:
+        required: true
+      CLOUDHUB_BUSINESS_GROUP_ID:
+        required: true
+      ENCRYPTION_KEY:
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Mulesoft environment
+        uses: nimblehq/mulesoft-actions/setup@v1
+
+      - name: Build with Maven
+        uses: nimblehq/mulesoft-actions/build@v1
+        id: build
+    outputs:
+      artifact_name: ${{ steps.build.outputs.artifact_name }}
+      mule_artifact_name: ${{ steps.build.outputs.mule_artifact_name }}
+
+  deploy:
+    name: Deploy
+    needs: build
+    environment: ${{ inputs.deploy_environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Mulesoft environment
+        uses: nimblehq/mulesoft-actions/setup@v1
+
+      - name: Convert AWS region to short abbreviation
+        uses: cloudposse/github-action-aws-region-reduction-map@main
+        id: aws_map
+        with:
+          region: ${{ inputs.cloudhub_region }}
+          format: short
+
+      - name: Set CloudHub application name
+        shell: bash
+        run: |
+          appName="${{ inputs.application_name }}-${{ steps.aws_map.outputs.result }}-${{ inputs.mule_environment }}"
+          echo "CLOUDHUB_APPLICATION_NAME=$appName" >> $GITHUB_ENV
+
+      - name: Deploy to CloudHub
+        uses: nimblehq/mulesoft-actions/deploy@v1
+        with:
+          connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+          connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+          cloudhub_environment: ${{ inputs.cloudhub_environment }}
+          cloudhub_region: ${{ inputs.cloudhub_region }}
+          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          cloudhub_application_name: ${{ env.CLOUDHUB_APPLICATION_NAME }}
+          mule_environment: ${{ inputs.mule_environment }}
+          artifact_name: ${{ needs.build.outputs.artifact_name }}
+          mule_artifact_name: ${{ needs.build.outputs.mule_artifact_name }}
+          encryption_key: ${{ secrets.ENCRYPTION_KEY }}
