@@ -99,6 +99,160 @@ jobs:
           maven_settings_path: .maven/settings.xml
 ```
 
+### Build with Maven
+
+Action to build with Maven. See [build/action.yml](build/action.yml)
+
+#### Usage
+
+```yml
+- uses: nimblehq/mulesoft-actions/build@v1
+  with:
+    # Upload build artifacts to GitHub Actions Artifacts
+    # Default: true
+    use_artifacts: true
+
+    # Artifact name
+    # Default: build-artifacts
+    artifact_name: build-artifacts
+```
+
+Basic:
+
+```yml
+name: My workflow
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Mulesoft environment
+        uses: nimblehq/mulesoft-actions/setup@v1
+
+      - name: Build with Maven
+        uses: nimblehq/mulesoft-actions/build@v1
+        with:
+          artifact_name: build-artifacts
+```
+
+### Deploy to CloudHub
+
+Action to deploy to CloudHub. See [deploy/action.yml](deploy/action.yml)
+
+> [!IMPORTANT]\
+> This action requires a built artifact from the `build` action.
+Before deploying to CloudHub, you must configure the `cloudHubDeployment` element. Inside the `org.mule.tools.maven` plugin element in the project’s `pom.xml` file, add the following configuration:
+
+```xml
+<plugin>
+    <groupId>org.mule.tools.maven</groupId>
+    <artifactId>mule-maven-plugin</artifactId>
+    <version>${mule.maven.plugin.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <!-- Add the following configuration -->
+        <cloudHubDeployment>
+            <uri>https://anypoint.mulesoft.com</uri>
+            <muleVersion>${MULE_VERSION}</muleVersion>
+            <applicationName>${CLOUDHUB_APPLICATION_NAME}</applicationName>
+            <environment>${CLOUDHUB_ENVIRONMENT}</environment>
+            <connectedAppClientId>${CONNECTED_APP_CLIENT_ID}</connectedAppClientId>
+            <connectedAppClientSecret>${CONNECTED_APP_CLIENT_SECRET}</connectedAppClientSecret>
+            <connectedAppGrantType>client_credentials</connectedAppGrantType>
+            <properties>
+							<mule.env>${MULE_ENVIRONMENT}</mule.env>
+            </properties>
+        </cloudHubDeployment>
+        <!-- End of configuration -->
+    </configuration>
+</plugin>
+```
+
+#### Usage
+
+```yml
+- uses: nimblehq/mulesoft-actions/deploy@v1
+  with:
+    # Use artifact from `build` action
+    # Default: false
+    use_artifact: true
+
+    # Artifact name
+    # Default: build-artifacts
+    artifact_name: build-artifacts
+
+    # CloudHub connected app client ID
+    # Required
+    connected_app_client_id: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
+
+    # CloudHub connected app client secret
+    # Required
+    connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
+
+    # CloudHub environment
+    # Required
+    cloudhub_environment: ${{ secrets.CLOUDHUB_ENVIRONMENT }}
+
+    # CloudHub Business Group ID
+    # Required
+    cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+
+    # CloudHub Region
+    # Required
+    cloudhub_region: ${{ secrets.CLOUDHUB_REGION }}
+
+    # Mule version
+    # Default: 4.4.0
+    mule_version: 4.4.0
+
+    # Mule environment
+    # Default: production
+    mule_environment: production
+
+    # Application name
+    # This will be used as the application name in CloudHub along with the CloudHub region and Mule environment
+    # Example: my-app-my-region-my-environment
+    # Required
+    application_name: ${{ secrets.CLOUDHUB_APPLICATION_NAME }}
+```
+
+Basic:
+
+```yml
+name: My workflow
+on: [push, pull_request]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Mulesoft environment
+        uses: nimblehq/mulesoft-actions/setup@v1
+
+      - name: Build with Maven
+        uses: nimblehq/mulesoft-actions/build@v1
+        with:
+          artifact_name: build-artifacts
+        id: build
+
+      - name: Deploy to CloudHub
+        uses: nimblehq/mulesoft-actions/deploy@v1
+        with:
+          cloudhub_environment: ${{ secrets.CLOUDHUB_ENVIRONMENT }}
+          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          cloudhub_region: ${{ secrets.CLOUDHUB_REGION }}
+          mule_version: ${{ secrets.MULE_VERSION }}
+          mule_environment: ${{ secrets.MULE_ENVIRONMENT }}
+          application_name: ${{ secrets.APPLICATION_NAME }}
+          connected_app_client_id: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
+          connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
+```
+
 ### Publish Assets to Anypoint Exchange
 
 Action to Publish Assets to Anypoint Exchange. See [publish_assets/action.yml](publish_assets/action.yml)
