@@ -269,7 +269,7 @@ Action to Publish Assets to Anypoint Exchange. See [publish_assets/action.yml](p
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/publish_assets@main
+- uses: nimblehq/mulesoft-actions/publish_assets@v1
   with:
     # AnyPoint Organization ID or Business Group ID
     # Required
@@ -297,7 +297,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Publish Assets to Anypoint Exchange
-        uses: nimblehq/mulesoft-actions/publish_assets@main
+        uses: nimblehq/mulesoft-actions/publish_assets@v1
         with:
           org_id: ${{ secrets.BUSINESS_GROUP_ID }}
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
