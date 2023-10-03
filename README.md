@@ -138,9 +138,9 @@ jobs:
           artifact_name: build-artifacts
 ```
 
-### Deploy to CloudHub
+### Deploy to CloudHub 1.0
 
-Action to deploy to CloudHub. See [deploy/action.yml](deploy/action.yml)
+Action to deploy to CloudHub 1.0. See [deploy/action.yml](deploy/action.yml)
 
 > [!IMPORTANT]\
 > This action requires a built artifact from the `build` action.

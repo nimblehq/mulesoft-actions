@@ -1,4 +1,4 @@
-name: Deploy to CloudHub
+name: Deploy to CloudHub 1.0
 description: Deploy to CloudHub with Maven
 inputs:
   use_artifact:
