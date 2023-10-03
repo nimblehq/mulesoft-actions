@@ -23,7 +23,7 @@ runs:
 
     - name: Stamp artifact file name with commit hash
       shell: bash
-      id: artifact_name
+      id: stamp_artifact_name
       run: |
         currentArtifactName=$(ls target/*.jar | head -1)
         commitHash=$(git rev-parse --short "$GITHUB_SHA")
@@ -41,5 +41,5 @@ runs:
       uses: actions/upload-artifact@v3
       if: inputs.use_artifacts == 'true'
       with:
-        name: ${{ steps.artifact_name.outputs.artifact_name }}
-        path: ${{ steps.artifact_name.outputs.mule_file_path }}
+        name: ${{ steps.stamp_artifact_name.outputs.artifact_name }}
+        path: ${{ steps.stamp_artifact_name.outputs.mule_file_path }}
