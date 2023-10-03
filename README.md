@@ -221,10 +221,6 @@ Action to deploy to CloudHub 1.0. See [deploy/action.yml](deploy/action.yml)
     # Mule environment
     # Default: production
     mule_environment: production
-
-    # Encryption key
-    # Required
-    encryption_key: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 Basic:
@@ -258,8 +254,7 @@ jobs:
           mule_environment: ${{ secrets.MULE_ENVIRONMENT }}
           application_name: ${{ secrets.APPLICATION_NAME }}
           connected_app_client_id: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
-          connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
-          encryption_key: ${{ secrets.ENCRYPTION_KEY }}
+          connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }
 ```
 
 ### Publish Assets to Anypoint Exchange
@@ -394,10 +389,6 @@ Create a new environment for deployment and set the needed environment variables
     # CloudHub business group ID
     # Required
     CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
-
-    # Encryption key
-    # Required
-    ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 Basic:
@@ -438,7 +429,6 @@ jobs:
       CONTD_APP_CLIENT_ID: ${{ secrets.CONTD_APP_CLIENT_ID }}
       CONTD_APP_CLIENT_SECRET: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
       CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
-      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY_DEV }}
 ```
 
 ## License

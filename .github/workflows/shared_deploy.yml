@@ -24,8 +24,6 @@ on:
         required: true
       CLOUDHUB_BUSINESS_GROUP_ID:
         required: true
-      ENCRYPTION_KEY:
-        required: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -93,4 +91,3 @@ jobs:
           cloudhub_application_name: ${{ steps.set_app_name.outputs.cloudhub_application_name }}
           artifact_name: ${{ needs.build.outputs.artifact_name }}
           mule_artifact_name: ${{ needs.build.outputs.mule_artifact_name }}
-          encryption_key: ${{ secrets.ENCRYPTION_KEY }}
