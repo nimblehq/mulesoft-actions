@@ -15,9 +15,8 @@ on:
       cloudhub_environment:
         type: string
         required: true
-      mule_environment:
+      cloudhub_application_name:
         type: string
-        required: true
     secrets:
       CONTD_APP_CLIENT_ID:
         required: true
@@ -63,6 +62,7 @@ jobs:
         uses: nimblehq/mulesoft-actions/setup@v1
 
       - name: Convert AWS region to short abbreviation
+        if: inputs.cloudhub_application_name == ''
         uses: cloudposse/github-action-aws-region-reduction-map@main
         id: aws_map
         with:
@@ -70,10 +70,17 @@ jobs:
           format: short
 
       - name: Set CloudHub application name
+        id: set_app_name
         shell: bash
         run: |
-          appName="${{ inputs.application_name }}-${{ steps.aws_map.outputs.result }}-${{ inputs.mule_environment }}"
-          echo "CLOUDHUB_APPLICATION_NAME=$appName" >> $GITHUB_ENV
+          if [ -z "${{ inputs.cloudhub_application_name }}" ]; then
+            appName="${{ inputs.application_name }}-${{ steps.aws_map.outputs.result }}-${{ inputs.cloudhub_environment }}"
+          else
+            appName="${{ inputs.cloudhub_application_name }}"
+          fi
+          # Convert the application name to lowercase
+          appName=$(echo $appName | sed y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/)
+          echo "cloudhub_application_name=$appName" >> $GITHUB_OUTPUT
 
       - name: Deploy to CloudHub
         uses: nimblehq/mulesoft-actions/deploy@v1
@@ -83,8 +90,7 @@ jobs:
           cloudhub_environment: ${{ inputs.cloudhub_environment }}
           cloudhub_region: ${{ inputs.cloudhub_region }}
           cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
-          cloudhub_application_name: ${{ env.CLOUDHUB_APPLICATION_NAME }}
-          mule_environment: ${{ inputs.mule_environment }}
+          cloudhub_application_name: ${{ steps.set_app_name.outputs.cloudhub_application_name }}
           artifact_name: ${{ needs.build.outputs.artifact_name }}
           mule_artifact_name: ${{ needs.build.outputs.mule_artifact_name }}
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
