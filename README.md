@@ -155,16 +155,18 @@ Action to deploy to CloudHub. See [deploy/action.yml](deploy/action.yml)
     <configuration>
         <!-- Add the following configuration -->
         <cloudHubDeployment>
-            <uri>https://anypoint.mulesoft.com</uri>
-            <muleVersion>${MULE_VERSION}</muleVersion>
-            <applicationName>${CLOUDHUB_APPLICATION_NAME}</applicationName>
-            <environment>${CLOUDHUB_ENVIRONMENT}</environment>
-            <connectedAppClientId>${CONNECTED_APP_CLIENT_ID}</connectedAppClientId>
-            <connectedAppClientSecret>${CONNECTED_APP_CLIENT_SECRET}</connectedAppClientSecret>
-            <connectedAppGrantType>client_credentials</connectedAppGrantType>
-            <properties>
-							<mule.env>${MULE_ENVIRONMENT}</mule.env>
-            </properties>
+          <uri>https://anypoint.mulesoft.com</uri>
+          <muleVersion>${app.runtime}</muleVersion>
+          <applicationName>${CLOUDHUB_APPLICATION_NAME}</applicationName>
+          <environment>${CLOUDHUB_ENVIRONMENT}</environment>
+          <businessGroupId>${CLOUDHUB_BUSINESS_GROUP_ID}</businessGroupId>
+          <region>${CLOUDHUB_REGION}</region>
+          <connectedAppClientId>${CONNECTED_APP_CLIENT_ID}</connectedAppClientId>
+          <connectedAppClientSecret>${CONNECTED_APP_CLIENT_SECRET}</connectedAppClientSecret>
+          <connectedAppGrantType>client_credentials</connectedAppGrantType>
+          <properties>
+            <mule.env>${MULE_ENVIRONMENT}</mule.env>
+          </properties>
         </cloudHubDeployment>
         <!-- End of configuration -->
     </configuration>
@@ -346,6 +348,97 @@ jobs:
     secrets:
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+```
+
+### Shared Deploy Workflow
+
+Workflow to deploy Mulesoft projects to CloudHub. See [.github/workflows/shared_deploy.yml](.github/workflows/shared_deploy.yml)
+
+#### Usage
+
+Create a new environment for deployment and set the needed environment variables, secrets.
+
+```yml
+- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy.yml@v1
+  with:
+    # The GitHub Actions environment for deployment
+    # Required
+    deploy_environment: dev
+
+    # Application name
+    # It can be the project name
+    # Required
+    application_name: my-app
+
+    # CloudHub region
+    # Required
+    cloudhub_region: ap-southeast-1
+
+    # CloudHub environment
+    # Required
+    cloudhub_environment: DEV
+
+    # Mule environment
+    # Required
+    mule_environment: dev
+
+  secrets:
+    # CloudHub connected app client ID
+    # Required
+    CONTD_APP_CLIENT_ID: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
+
+    # CloudHub connected app client secret
+    # Required
+    CONTD_APP_CLIENT_SECRET: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
+
+    # CloudHub business group ID
+    # Required
+    CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+
+    # Encryption key
+    # Required
+    ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+```
+
+Basic:
+
+```yml
+name: My workflow
+on: [push]
+jobs:
+  get_vars:
+    name: Get variables for the dev environment
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Get variables and set them in the output
+        id: vars
+        run: |
+          echo "application_name=${{ vars.APPLICATION_NAME }}" >> $GITHUB_OUTPUT
+          echo "cloudhub_environment=${{ vars.CLOUDHUB_ENVIRONMENT }}" >> $GITHUB_OUTPUT
+          echo "cloudhub_region=${{ vars.CLOUDHUB_REGION }}" >> $GITHUB_OUTPUT
+          echo "mule_environment=${{ vars.MULE_ENVIRONMENT }}" >> $GITHUB_OUTPUT
+    outputs:
+      application_name: ${{ steps.vars.outputs.application_name }}
+      cloudhub_environment: ${{ steps.vars.outputs.cloudhub_environment }}
+      cloudhub_region: ${{ steps.vars.outputs.cloudhub_region }}
+      mule_environment: ${{ steps.vars.outputs.mule_environment }}
+
+  trigger_deploy:
+    uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy.yml@v1
+    name: Trigger the deploy workflow
+    needs: get_vars
+    with:
+      deploy_environment: dev
+      application_name: ${{ needs.get_vars.outputs.application_name }}
+      cloudhub_region: ${{ needs.get_vars.outputs.cloudhub_region }}
+      cloudhub_environment: ${{ needs.get_vars.outputs.cloudhub_environment }}
+      mule_environment: ${{ needs.get_vars.outputs.mule_environment }}
+    secrets:
+      CONTD_APP_CLIENT_ID: ${{ secrets.CONTD_APP_CLIENT_ID }}
+      CONTD_APP_CLIENT_SECRET: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+      CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
+      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY_DEV }}
 ```
 
 ## License
