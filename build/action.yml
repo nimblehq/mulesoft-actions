@@ -10,9 +10,9 @@ outputs:
   artifact_name:
     description: Artifact name
     value: ${{ steps.artifact_name.outputs.artifact_name }}
-  mule_artifact_name:
-    description: Mule artifact name
-    value: ${{ steps.artifact_name.outputs.mule_artifact_name }}
+  mule_file_path:
+    description: Mule file path
+    value: ${{ steps.artifact_name.outputs.mule_file_path }}
 
 runs:
   using: composite
@@ -29,7 +29,7 @@ runs:
         commitHash=$(git rev-parse --short "$GITHUB_SHA")
         newArtifactName=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
         mv $currentArtifactName $newArtifactName
-        echo "mule_artifact_name=$newArtifactName" >> $GITHUB_OUTPUT
+        echo "mule_file_path=$newArtifactName" >> $GITHUB_OUTPUT
 
         if [ -z "${{ inputs.artifact_name }}" ]; then
           echo "artifact_name=$(echo $newArtifactName | cut -d"/" -f2 | sed "s/.jar//g")" >> $GITHUB_OUTPUT
@@ -42,4 +42,4 @@ runs:
       if: inputs.use_artifacts == 'true'
       with:
         name: ${{ steps.artifact_name.outputs.artifact_name }}
-        path: ${{ steps.artifact_name.outputs.mule_artifact_name }}
+        path: ${{ steps.artifact_name.outputs.mule_file_path }}
