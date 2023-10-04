@@ -11,6 +11,9 @@ on:
         required: true
       cloudhub_application_name:
         type: string
+      mule_runtime_version:
+        type: string
+        default: 4.4.0
     secrets:
       CONTD_APP_CLIENT_ID:
         required: true
@@ -62,4 +65,5 @@ jobs:
           cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
           cloudhub_application_name: ${{ inputs.cloudhub_application_name }}
           artifact_name: ${{ needs.build.outputs.artifact_name }}
-          mule_artifact_name: ${{ needs.build.outputs.mule_file_path }}
+          mule_file_path: ${{ needs.build.outputs.mule_file_path }}
+          mule_runtime_version: ${{ inputs.mule_runtime_version }}

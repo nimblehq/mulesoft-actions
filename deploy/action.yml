@@ -7,8 +7,8 @@ inputs:
   artifact_name:
     description: Artifact name
     default: build-artifacts
-  mule_artifact_name:
-    description: Mule artifact name
+  mule_file_path:
+    description: Mule file path
     required: true
   connected_app_client_id:
     description: CloudHub connected app client ID
@@ -27,8 +27,8 @@ inputs:
   cloudhub_application_name:
     description: CloudHub application name
     required: true
-  mule_version:
-    description: Mule version
+  mule_runtime_version:
+    description: Mule runtime version
     default: 4.4.0
 
 runs:
@@ -43,7 +43,7 @@ runs:
     - name: Deploy to CloudHub
       shell: bash
       run: |
-        artifactName=${{ inputs.mule_artifact_name }}
+        artifactName=${{ inputs.mule_file_path }}
         mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
@@ -52,4 +52,4 @@ runs:
         CLOUDHUB_BUSINESS_GROUP_ID: ${{ inputs.cloudhub_business_group_id }}
         CLOUDHUB_REGION: ${{ inputs.cloudhub_region }}
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
-        MULE_VERSION: ${{ inputs.mule_version }}
+        MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
