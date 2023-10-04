@@ -353,14 +353,14 @@ jobs:
 
 ### Shared Deploy Workflow
 
-Workflow to deploy Mulesoft projects to CloudHub. See [.github/workflows/shared_deploy.yml](.github/workflows/shared_deploy.yml)
+Workflow to deploy Mulesoft projects to CloudHub 1.0. See [.github/workflows/shared_deploy_cloudhub_1_0.yml](.github/workflows/shared_deploy_cloudhub_1_0.yml)
 
 #### Usage
 
 Create a new environment for deployment and set the needed environment variables, secrets.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy.yml@v1
+- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1
   with:
     # CloudHub application name
     # Required
@@ -395,9 +395,8 @@ name: My workflow
 on: [push]
 jobs:
   trigger_deploy:
-    uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy.yml@v1
+    uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1
     name: Trigger the deploy workflow
-    needs: get_vars
     with:
       cloudhub_application_name: my-app
       cloudhub_region: southeast-1
