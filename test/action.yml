@@ -14,6 +14,9 @@ inputs:
   upload_coverage_reports:
     description: Upload MUnit reports to GitHub Actions Artifacts
     default: 'true'
+  retention_days:
+    description: Artifact retention days
+    default: 1
 
 runs:
   using: composite
@@ -31,3 +34,4 @@ runs:
       with:
         name: munit-test-reports
         path: target/site/munit/coverage/
+        retention-days: ${{ inputs.retention_days }}

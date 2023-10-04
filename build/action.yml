@@ -6,6 +6,9 @@ inputs:
     default: 'true'
   artifact_name:
     description: 'Artifact name. Default: The name of the build and commit hash'
+  retention_days:
+    description: Artifact retention days
+    default: 1
 outputs:
   artifact_name:
     description: Artifact name
@@ -43,3 +46,4 @@ runs:
       with:
         name: ${{ steps.stamp_artifact_name.outputs.artifact_name }}
         path: ${{ steps.stamp_artifact_name.outputs.mule_file_path }}
+        retention-days: ${{ inputs.retention_days }}
