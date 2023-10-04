@@ -1,5 +1,5 @@
 name: Deploy to CloudHub 1.0
-description: Deploy to CloudHub with Maven
+description: Deploy to CloudHub 1.0 with Maven
 inputs:
   use_artifact:
     description: Download artifact
@@ -40,7 +40,7 @@ runs:
       with:
         name: ${{ inputs.artifact_name }}
 
-    - name: Deploy to CloudHub
+    - name: Deploy to CloudHub 1.0
       shell: bash
       run: |
         artifactName=${{ inputs.mule_file_path }}

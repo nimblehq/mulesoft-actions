@@ -144,7 +144,7 @@ jobs:
 
 ### Deploy to CloudHub 1.0
 
-Action to deploy to CloudHub 1.0. See [deploy/action.yml](deploy/action.yml)
+Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cloudhub_1_0/action.yml)
 
 > [!IMPORTANT]\
 > This action requires a built artifact from the `build` action.
@@ -180,7 +180,7 @@ Action to deploy to CloudHub 1.0. See [deploy/action.yml](deploy/action.yml)
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/deploy@v1
+- uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1
   with:
     # Use artifact from `build` action
     # Default: false
@@ -218,9 +218,9 @@ Action to deploy to CloudHub 1.0. See [deploy/action.yml](deploy/action.yml)
     # Required
     cloudhub_application_name: ${{ secrets.CLOUDHUB_APPLICATION_NAME }}
 
-    # Mule version
+    # Mule runtime version
     # Default: 4.4.0
-    mule_version: 4.4.0
+    mule_runtime_version: 4.4.0
 
     # Mule environment
     # Default: production
@@ -245,20 +245,22 @@ jobs:
       - name: Build with Maven
         uses: nimblehq/mulesoft-actions/build@v1
         with:
-          artifact_name: build-artifacts
+          use_artifacts: false
         id: build
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy@v1
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1
         with:
           cloudhub_environment: ${{ secrets.CLOUDHUB_ENVIRONMENT }}
           cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
           cloudhub_region: ${{ secrets.CLOUDHUB_REGION }}
-          mule_version: ${{ secrets.MULE_VERSION }}
+          mule_runtime_version: ${{ secrets.MULE_VERSION }}
           mule_environment: ${{ secrets.MULE_ENVIRONMENT }}
           application_name: ${{ secrets.APPLICATION_NAME }}
           connected_app_client_id: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }
+          use_artifact: false
+          mule_file_path: ${{ steps.build.outputs.mule_file_path }}
 ```
 
 ### Publish Assets to Anypoint Exchange
