@@ -12,10 +12,10 @@ inputs:
 outputs:
   artifact_name:
     description: Artifact name
-    value: ${{ steps.artifact_name.outputs.artifact_name }}
+    value: ${{ steps.stamp_artifact_name.outputs.artifact_name }}
   mule_file_path:
     description: Mule file path
-    value: ${{ steps.artifact_name.outputs.mule_file_path }}
+    value: ${{ steps.stamp_artifact_name.outputs.mule_file_path }}
 
 runs:
   using: composite
