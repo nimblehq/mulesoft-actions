@@ -356,14 +356,9 @@ Create a new environment for deployment and set the needed environment variables
 ```yml
 - uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy.yml@v1
   with:
-    # The GitHub Actions environment for deployment
+    # CloudHub application name
     # Required
-    deploy_environment: dev
-
-    # Application name
-    # It can be the project name
-    # Required
-    application_name: my-app
+    cloudhub_application_name: my-app
 
     # CloudHub region
     # Required
@@ -372,10 +367,6 @@ Create a new environment for deployment and set the needed environment variables
     # CloudHub environment
     # Required
     cloudhub_environment: DEV
-
-    # Mule environment
-    # Required
-    mule_environment: dev
 
   secrets:
     # CloudHub connected app client ID
@@ -397,34 +388,14 @@ Basic:
 name: My workflow
 on: [push]
 jobs:
-  get_vars:
-    name: Get variables for the dev environment
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
-      - name: Get variables and set them in the output
-        id: vars
-        run: |
-          echo "application_name=${{ vars.APPLICATION_NAME }}" >> $GITHUB_OUTPUT
-          echo "cloudhub_environment=${{ vars.CLOUDHUB_ENVIRONMENT }}" >> $GITHUB_OUTPUT
-          echo "cloudhub_region=${{ vars.CLOUDHUB_REGION }}" >> $GITHUB_OUTPUT
-          echo "mule_environment=${{ vars.MULE_ENVIRONMENT }}" >> $GITHUB_OUTPUT
-    outputs:
-      application_name: ${{ steps.vars.outputs.application_name }}
-      cloudhub_environment: ${{ steps.vars.outputs.cloudhub_environment }}
-      cloudhub_region: ${{ steps.vars.outputs.cloudhub_region }}
-      mule_environment: ${{ steps.vars.outputs.mule_environment }}
-
   trigger_deploy:
     uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy.yml@v1
     name: Trigger the deploy workflow
     needs: get_vars
     with:
-      deploy_environment: dev
-      application_name: ${{ needs.get_vars.outputs.application_name }}
-      cloudhub_region: ${{ needs.get_vars.outputs.cloudhub_region }}
-      cloudhub_environment: ${{ needs.get_vars.outputs.cloudhub_environment }}
-      mule_environment: ${{ needs.get_vars.outputs.mule_environment }}
+      cloudhub_application_name: my-app
+      cloudhub_region: southeast-1
+      cloudhub_environment: DEV
     secrets:
       CONTD_APP_CLIENT_ID: ${{ secrets.CONTD_APP_CLIENT_ID }}
       CONTD_APP_CLIENT_SECRET: ${{ secrets.CONTD_APP_CLIENT_SECRET }}

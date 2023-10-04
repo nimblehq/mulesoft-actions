@@ -3,12 +3,6 @@ name: Deploy
 on:
   workflow_call:
     inputs:
-      deploy_environment:
-        type: string
-        required: true
-      application_name:
-        type: string
-        required: true
       cloudhub_region:
         type: string
         required: true
@@ -45,12 +39,11 @@ jobs:
         id: build
     outputs:
       artifact_name: ${{ steps.build.outputs.artifact_name }}
-      mule_artifact_name: ${{ steps.build.outputs.mule_artifact_name }}
+      mule_file_path: ${{ steps.build.outputs.mule_file_path }}
 
   deploy:
     name: Deploy
     needs: build
-    environment: ${{ inputs.deploy_environment }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -58,27 +51,6 @@ jobs:
 
       - name: Set up Mulesoft environment
         uses: nimblehq/mulesoft-actions/setup@v1
-
-      - name: Convert AWS region to short abbreviation
-        if: inputs.cloudhub_application_name == ''
-        uses: cloudposse/github-action-aws-region-reduction-map@main
-        id: aws_map
-        with:
-          region: ${{ inputs.cloudhub_region }}
-          format: short
-
-      - name: Set CloudHub application name
-        id: set_app_name
-        shell: bash
-        run: |
-          if [ -z "${{ inputs.cloudhub_application_name }}" ]; then
-            appName="${{ inputs.application_name }}-${{ steps.aws_map.outputs.result }}-${{ inputs.cloudhub_environment }}"
-          else
-            appName="${{ inputs.cloudhub_application_name }}"
-          fi
-          # Convert the application name to lowercase
-          appName=$(echo $appName | sed y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/)
-          echo "cloudhub_application_name=$appName" >> $GITHUB_OUTPUT
 
       - name: Deploy to CloudHub
         uses: nimblehq/mulesoft-actions/deploy@v1
@@ -88,6 +60,6 @@ jobs:
           cloudhub_environment: ${{ inputs.cloudhub_environment }}
           cloudhub_region: ${{ inputs.cloudhub_region }}
           cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
-          cloudhub_application_name: ${{ steps.set_app_name.outputs.cloudhub_application_name }}
+          cloudhub_application_name: ${{ inputs.cloudhub_application_name }}
           artifact_name: ${{ needs.build.outputs.artifact_name }}
-          mule_artifact_name: ${{ needs.build.outputs.mule_artifact_name }}
+          mule_artifact_name: ${{ needs.build.outputs.mule_file_path }}
