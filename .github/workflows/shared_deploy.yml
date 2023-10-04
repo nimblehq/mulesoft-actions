@@ -23,8 +23,8 @@ on:
         required: true
 
 jobs:
-  build:
-    name: Build
+  deploy:
+    name: Build and deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,20 +36,8 @@ jobs:
       - name: Build with Maven
         uses: nimblehq/mulesoft-actions/build@v1
         id: build
-    outputs:
-      artifact_name: ${{ steps.build.outputs.artifact_name }}
-      mule_file_path: ${{ steps.build.outputs.mule_file_path }}
-
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1
+        with:
+          use_artifacts: false
 
       - name: Deploy to CloudHub
         uses: nimblehq/mulesoft-actions/deploy@v1
@@ -60,6 +48,6 @@ jobs:
           cloudhub_region: ${{ inputs.cloudhub_region }}
           cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
           cloudhub_application_name: ${{ inputs.cloudhub_application_name }}
-          artifact_name: ${{ needs.build.outputs.artifact_name }}
-          mule_file_path: ${{ needs.build.outputs.mule_file_path }}
+          use_artifact: false
+          mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
