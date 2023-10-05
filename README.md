@@ -374,6 +374,10 @@ Create a new environment for deployment and set the needed environment variables
     # Required
     cloudhub_environment: DEV
 
+    # Mule runtime version
+    # Default: 4.4.0
+    mule_runtime_version: 4.4.0
+
   secrets:
     # CloudHub connected app client ID
     # Required
