@@ -1,0 +1,49 @@
+name: Build
+description: Build with Maven and upload build artifacts
+inputs:
+  use_artifacts:
+    description: Upload build artifacts
+    default: 'true'
+  artifact_name:
+    description: 'Artifact name. Default: The name of the build and commit hash'
+  retention_days:
+    description: Artifact retention days
+    default: 1
+outputs:
+  artifact_name:
+    description: Artifact name
+    value: ${{ steps.stamp_artifact_name.outputs.artifact_name }}
+  mule_file_path:
+    description: Mule file path
+    value: ${{ steps.stamp_artifact_name.outputs.mule_file_path }}
+
+runs:
+  using: composite
+  steps:
+    - name: Build with Maven
+      shell: bash
+      run: mvn -B package --file pom.xml -DskipMunitTests
+
+    - name: Stamp artifact file name with commit hash
+      shell: bash
+      id: stamp_artifact_name
+      run: |
+        currentArtifactName=$(ls target/*.jar | head -1)
+        commitHash=$(git rev-parse --short "$GITHUB_SHA")
+        newArtifactName=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
+        mv $currentArtifactName $newArtifactName
+        echo "mule_file_path=$newArtifactName" >> $GITHUB_OUTPUT
+
+        if [ -z "${{ inputs.artifact_name }}" ]; then
+          echo "artifact_name=$(echo $newArtifactName | cut -d"/" -f2 | sed "s/.jar//g")" >> $GITHUB_OUTPUT
+        else
+          echo "artifact_name=${inputs.artifact_name}" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      if: inputs.use_artifacts == 'true'
+      with:
+        name: ${{ steps.stamp_artifact_name.outputs.artifact_name }}
+        path: ${{ steps.stamp_artifact_name.outputs.mule_file_path }}
+        retention-days: ${{ inputs.retention_days }}

@@ -1,0 +1,55 @@
+name: Deploy to CloudHub 1.0
+description: Deploy to CloudHub 1.0 with Maven
+inputs:
+  use_artifact:
+    description: Download artifact
+    default: 'true'
+  artifact_name:
+    description: Artifact name
+    default: build-artifacts
+  mule_file_path:
+    description: Mule file path
+    required: true
+  connected_app_client_id:
+    description: CloudHub connected app client ID
+    required: true
+  connected_app_client_secret:
+    description: CloudHub connected app client secret
+    required: true
+  cloudhub_environment:
+    description: CloudHub environment
+    required: true
+  cloudhub_business_group_id:
+    description: CloudHub business group ID
+  cloudhub_region:
+    description: CloudHub region
+    default: ap-southeast-1
+  cloudhub_application_name:
+    description: CloudHub application name
+    required: true
+  mule_runtime_version:
+    description: Mule runtime version
+    default: 4.4.0
+
+runs:
+  using: composite
+  steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      if: inputs.use_artifact == 'true'
+      with:
+        name: ${{ inputs.artifact_name }}
+
+    - name: Deploy to CloudHub 1.0
+      shell: bash
+      run: |
+        artifactName=${{ inputs.mule_file_path }}
+        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName}
+      env:
+        CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
+        CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
+        CLOUDHUB_ENVIRONMENT: ${{ inputs.cloudhub_environment }}
+        CLOUDHUB_BUSINESS_GROUP_ID: ${{ inputs.cloudhub_business_group_id }}
+        CLOUDHUB_REGION: ${{ inputs.cloudhub_region }}
+        CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
+        MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
