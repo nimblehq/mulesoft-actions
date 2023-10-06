@@ -1,0 +1,66 @@
+name: Get semantic versions
+description: Get the current and next semantic versions
+inputs:
+  version_file_type:
+    description: File type
+    default: json
+  version_file_path:
+    description: File path
+    default: package.json
+  next_version_type:
+    description: Next version type
+    default: patch
+outputs:
+  current_version:
+    description: Current version
+    value: ${{ steps.current_version.outputs.version }}
+  next_version:
+    description: Next versions
+    value: ${{ steps.next_version.outputs.version }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get current version
+      id: current_version
+      shell: bash
+      run: |
+        case ${{ inputs.version_file_type }} in
+        json)
+          currentVersion=$(node -p -e "require('./${{ inputs.version_file_path }}').version")
+          ;;
+        *)
+          echo "Unsupported file type: ${{ inputs.version_file_type }}"
+          ;;
+        esac
+
+        echo "version=$currentVersion" >> $GITHUB_OUTPUT
+
+    - name: Get the next version
+      shell: bash
+      id: next_version
+      run: |
+        delimiter=.
+        array=($(echo "${{ steps.current_version.outputs.version }}" | tr $delimiter '\n'))
+
+        case ${{ inputs.next_version_type }} in
+          major)
+            array[0]=$((array[0]+1))
+            array[1]=0
+            array[2]=0
+            ;;
+          minor)
+            array[1]=$((array[1]+1))
+            array[2]=0
+            ;;
+          patch)
+            array[2]=$((array[2]+1))
+            ;;
+          *)
+            echo "Invalid version type specified"
+            exit 1
+            ;;
+        esac
+
+        nextVersion=$(IFS=$delimiter ; echo "${array[*]}")
+        echo "version=$nextVersion" >> $GITHUB_OUTPUT
