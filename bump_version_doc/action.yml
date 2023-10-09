@@ -12,7 +12,6 @@ inputs:
     required: true
   assignees:
     description: Assignees for the pull request
-    required: true
   github_token:
     description: GitHub token to create the pull request
     required: true
