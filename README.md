@@ -305,6 +305,57 @@ jobs:
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
 ```
 
+### Bump version for the documentation
+
+Action to bump version for the documentation. See [bump_version_doc/action.yml](bump_version_doc/action.yml)
+
+#### Usage
+
+```yml
+- uses: nimblehq/mulesoft-actions/bump_version_doc@v1
+  with:
+    # New version to bump
+    # Required
+    new_version: 1.0.1
+
+    # Version file
+    version_file: exchange.json
+
+    # Committer for the pull request
+    # Required
+    committer: ${{ github.actor }}
+
+    # Assignees for the pull request
+    assignees: ${{ github.actor }}
+
+    # GitHub token for the pull request
+    # Required
+    github_token: ${{ github.token }}
+```
+
+Basic:
+
+```yml
+name: My workflow
+on: [push, pull_request]
+jobs:
+  bump_version:
+    name: Bump Version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Bump Version
+        uses: nimblehq/mulesoft-actions/bump_version_doc@v1
+        with:
+          new_version: ${{ inputs.new_version }}
+          assignees: nimble-bot
+          committer: Nimble Bot <bot@nimblehq.co>
+          github_token: ${{ github.token }}
+
+```
+
 ## Mulesoft Shared Workflows
 
 ### Shared Test Workflow
