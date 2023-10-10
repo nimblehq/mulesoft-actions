@@ -44,7 +44,8 @@ runs:
       shell: bash
       run: |
         artifactName=${{ inputs.mule_file_path }}
-        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName}
+        encryptionKey=${{ inputs.encryption_key }}
+        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey="${encryptionKey}"
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
