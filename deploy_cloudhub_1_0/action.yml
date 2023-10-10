@@ -30,6 +30,8 @@ inputs:
   mule_runtime_version:
     description: Mule runtime version
     default: 4.4.0
+  encryptionKey:
+    description: Encryption key
 
 runs:
   using: composite
