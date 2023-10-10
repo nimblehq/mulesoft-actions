@@ -32,6 +32,7 @@ inputs:
     default: 4.4.0
   encryption_key:
     description: Encryption key
+    required: true
 
 runs:
   using: composite
