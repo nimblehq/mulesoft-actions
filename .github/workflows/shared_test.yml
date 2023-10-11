@@ -12,6 +12,10 @@ on:
         description: Upload MUnit reports to GitHub Actions Artifacts
         type: boolean
         default: true
+      encryption_key:
+        description: Encryption key for secure properties
+        type: string
+        required: true
     secrets:
       NEXUS_USERNAME:
         required: true
