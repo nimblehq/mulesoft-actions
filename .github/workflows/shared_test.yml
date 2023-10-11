@@ -38,7 +38,7 @@ jobs:
         uses: nimblehq/mulesoft-actions/setup@v1
 
       - name: Run MUnit tests
-        uses: nimblehq/mulesoft-actions/test@v1
+        uses: nimblehq/mulesoft-actions/test@v1.2
         with:
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
