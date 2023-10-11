@@ -40,3 +40,4 @@ jobs:
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           upload_coverage_reports: ${{ inputs.upload_coverage_reports }}
+          encryption_key: ${{ inputs.encryption_key }}
