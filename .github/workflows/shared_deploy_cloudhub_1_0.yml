@@ -40,7 +40,7 @@ jobs:
           use_artifacts: false
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.2
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
