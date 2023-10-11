@@ -30,9 +30,6 @@ inputs:
   mule_runtime_version:
     description: Mule runtime version
     default: 4.4.0
-  encryption_key:
-    description: Encryption key
-    required: true
 
 runs:
   using: composite
@@ -48,7 +45,7 @@ runs:
       run: |
         artifactName=${{ inputs.mule_file_path }}
         encryptionKey=${{ inputs.encryption_key }}
-        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey="${encryption_key}"
+        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}

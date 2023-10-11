@@ -14,9 +14,6 @@ on:
       mule_runtime_version:
         type: string
         default: 4.4.0
-      encryption_key:
-        type: string
-        required: true
     secrets:
       CONTD_APP_CLIENT_ID:
         required: true
@@ -54,4 +51,3 @@ jobs:
           use_artifact: false
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
-          encryption_key: ${{ inputs.ENCRYPTION_KEY }}
