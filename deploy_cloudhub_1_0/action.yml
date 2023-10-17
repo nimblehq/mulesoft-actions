@@ -30,6 +30,9 @@ inputs:
   mule_runtime_version:
     description: Mule runtime version
     default: 4.4.0
+  encryption_key:
+    description: Encryption key for secure properties
+    required: true
 
 runs:
   using: composite
@@ -44,7 +47,7 @@ runs:
       shell: bash
       run: |
         artifactName=${{ inputs.mule_file_path }}
-        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName}
+        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY_DEV}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
@@ -53,3 +56,4 @@ runs:
         CLOUDHUB_REGION: ${{ inputs.cloudhub_region }}
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
+        ENCRYPTION_KEY_DEV: ${{ inputs.encryption_key }}
