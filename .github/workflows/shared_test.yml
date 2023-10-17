@@ -12,15 +12,14 @@ on:
         description: Upload MUnit reports to GitHub Actions Artifacts
         type: boolean
         default: true
-      encryption_key:
-        description: Encryption key for secure properties
-        type: string
-        required: true
     secrets:
       NEXUS_USERNAME:
         required: true
       NEXUS_PASSWORD:
         required: true
+      ENCRYPTION_KEY_DEV:
+        required: true
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -44,4 +43,4 @@ jobs:
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           upload_coverage_reports: ${{ inputs.upload_coverage_reports }}
-          encryption_key: ${{ inputs.encryption_key }}
+          encryption_key: ${{ secrets.ENCRYPTION_KEY_DEV }}
