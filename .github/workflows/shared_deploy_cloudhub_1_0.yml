@@ -21,7 +21,7 @@ on:
         required: true
       CLOUDHUB_BUSINESS_GROUP_ID:
         required: true
-      ENCRYPTION_KEY_DEV:
+      ENCRYPTION_KEY:
         required: true
 
 jobs:
@@ -53,4 +53,4 @@ jobs:
           use_artifact: false
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
-          encryption_key: ${{ secrets.ENCRYPTION_KEY_DEV }}
+          encryption_key: ${{ secrets.ENCRYPTION_KEY }}
