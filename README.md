@@ -175,6 +175,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
           <connectedAppGrantType>client_credentials</connectedAppGrantType>
           <overrideProperties>false</overrideProperties>
           <properties>
+            <mule.env>${MULE_ENVIRONMENT}</mule.env>
             <securedKey>${encryptionKey}</securedKey>
           </properties>
         </cloudHubDeployment>
