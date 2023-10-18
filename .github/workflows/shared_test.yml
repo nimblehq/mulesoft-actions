@@ -17,7 +17,7 @@ on:
         required: true
       NEXUS_PASSWORD:
         required: true
-      ENCRYPTION_KEY_DEV:
+      ENCRYPTION_KEY:
         required: true
 
 
@@ -43,4 +43,4 @@ jobs:
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           upload_coverage_reports: ${{ inputs.upload_coverage_reports }}
-          encryption_key: ${{ secrets.ENCRYPTION_KEY_DEV }}
+          encryption_key: ${{ secrets.ENCRYPTION_KEY }}

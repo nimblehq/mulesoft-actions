@@ -56,7 +56,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
 > The Nexus enterprise repository username and password are required to run MUnit tests on the CI server. Refer to this [document](https://docs.mulesoft.com/mule-runtime/4.4/maven-reference#configure-mule-repositories) for more information.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/test@v1
+- uses: nimblehq/mulesoft-actions/test@v1.2
   with:
     # Nexus username
     # Required
@@ -78,6 +78,10 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
     # Artifact retention days
     # Default: 1
     retention_days: 1
+
+    # Encryption Key for secure properties
+    # Required
+    encryption_key: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 Basic:
@@ -96,11 +100,12 @@ jobs:
         uses: nimblehq/mulesoft-actions/setup@v1
 
       - name: Run MUnit tests
-        uses: nimblehq/mulesoft-actions/test@v1
+        uses: nimblehq/mulesoft-actions/test@v1.2
         with:
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           maven_settings_path: .maven/settings.xml
+          encryption_key: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 ### Build with Maven
@@ -168,8 +173,9 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
           <connectedAppClientId>${CONNECTED_APP_CLIENT_ID}</connectedAppClientId>
           <connectedAppClientSecret>${CONNECTED_APP_CLIENT_SECRET}</connectedAppClientSecret>
           <connectedAppGrantType>client_credentials</connectedAppGrantType>
+          <overrideProperties>false</overrideProperties>
           <properties>
-            <mule.env>${MULE_ENVIRONMENT}</mule.env>
+            <securedKey>${encryptionKey}</securedKey>
           </properties>
         </cloudHubDeployment>
         <!-- End of configuration -->
@@ -180,7 +186,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1
+- uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.2
   with:
     # Use artifact from `build` action
     # Default: false
@@ -225,6 +231,10 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
     # Mule environment
     # Default: production
     mule_environment: production
+
+    # Encryption Key for secure properties
+    # Required
+    encryption_key: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 Basic:
@@ -249,7 +259,7 @@ jobs:
         id: build
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.2
         with:
           cloudhub_environment: ${{ secrets.CLOUDHUB_ENVIRONMENT }}
           cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
@@ -261,6 +271,7 @@ jobs:
           connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }
           use_artifact: false
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
+          encryption_key: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 ### Publish Assets to Anypoint Exchange
@@ -365,7 +376,7 @@ Workflow to run MUnit tests for Mulesoft projects. See [.github/workflows/shared
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/.github/workflows/shared_test.yml@v1
+- uses: nimblehq/mulesoft-actions/.github/workflows/shared_test.yml@v1.2
   with:
     # Maven settings file path
     # Required
@@ -384,6 +395,10 @@ Workflow to run MUnit tests for Mulesoft projects. See [.github/workflows/shared
     # Nexus password
     # Required
     NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+
+    # Encryption Key for secure properties
+    # Required
+    ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 Basic:
@@ -393,13 +408,14 @@ name: My workflow
 on: [push, pull_request]
 jobs:
   trigger_test:
-    uses: nimblehq/mulesoft-actions/.github/workflows/shared_test.yml@v1
+    uses: nimblehq/mulesoft-actions/.github/workflows/shared_test.yml@v1.2
     name: Trigger the test workflow
     with:
       upload_coverage_reports: true
     secrets:
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 ### Shared Deploy Workflow
@@ -411,7 +427,7 @@ Workflow to deploy Mulesoft projects to CloudHub 1.0. See [.github/workflows/sha
 Create a new environment for deployment and set the needed environment variables, secrets.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1
+- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1.2
   with:
     # CloudHub application name
     # Required
@@ -441,6 +457,10 @@ Create a new environment for deployment and set the needed environment variables
     # CloudHub business group ID
     # Required
     CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+
+    # Encryption Key for secure properties
+    # Required
+    ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 Basic:
@@ -450,7 +470,7 @@ name: My workflow
 on: [push]
 jobs:
   trigger_deploy:
-    uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1
+    uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1.2
     name: Trigger the deploy workflow
     with:
       cloudhub_application_name: my-app
@@ -460,6 +480,7 @@ jobs:
       CONTD_APP_CLIENT_ID: ${{ secrets.CONTD_APP_CLIENT_ID }}
       CONTD_APP_CLIENT_SECRET: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
       CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
+      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
 ```
 
 ## License
