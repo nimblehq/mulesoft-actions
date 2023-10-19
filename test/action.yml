@@ -17,16 +17,20 @@ inputs:
   retention_days:
     description: Artifact retention days
     default: 1
+  encryption_key:
+    description: Encryption key for secure properties
+    required: true
 
 runs:
   using: composite
   steps:
     - name: Test with Maven
-      run: mvn test --settings ${{ inputs.maven_settings_path }}
+      run: mvn test --settings ${{ inputs.maven_settings_path }} -DsecuredKey=${ENCRYPTION_KEY}
       shell: bash
       env:
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}
+        ENCRYPTION_KEY: ${{ inputs.encryption_key }}
 
     - name: Upload MUnit reports
       uses: actions/upload-artifact@v3

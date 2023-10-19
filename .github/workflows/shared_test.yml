@@ -17,6 +17,8 @@ on:
         required: true
       NEXUS_PASSWORD:
         required: true
+      ENCRYPTION_KEY:
+        required: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -34,9 +36,10 @@ jobs:
         uses: nimblehq/mulesoft-actions/setup@v1
 
       - name: Run MUnit tests
-        uses: nimblehq/mulesoft-actions/test@v1
+        uses: nimblehq/mulesoft-actions/test@v1.2
         with:
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           upload_coverage_reports: ${{ inputs.upload_coverage_reports }}
+          encryption_key: ${{ secrets.ENCRYPTION_KEY }}
