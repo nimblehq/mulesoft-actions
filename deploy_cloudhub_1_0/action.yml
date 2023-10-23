@@ -47,7 +47,7 @@ runs:
       shell: bash
       run: |
         artifactName=${{ inputs.mule_file_path }}
-        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY}
+        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY} -DappVersion=${APP_VERSION}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
@@ -57,3 +57,4 @@ runs:
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
         ENCRYPTION_KEY: ${{ inputs.encryption_key }}
+        APP_VERSION: "v1"
