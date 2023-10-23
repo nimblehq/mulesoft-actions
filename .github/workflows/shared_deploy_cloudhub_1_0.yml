@@ -14,6 +14,9 @@ on:
       mule_runtime_version:
         type: string
         default: 4.4.0
+      app_version:
+        type: string
+        required: true
     secrets:
       CONTD_APP_CLIENT_ID:
         required: true
@@ -54,3 +57,4 @@ jobs:
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
+          app_version: ${{ inputs.app_version }}
