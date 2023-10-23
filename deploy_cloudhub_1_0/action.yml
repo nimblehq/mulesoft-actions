@@ -33,6 +33,12 @@ inputs:
   encryption_key:
     description: Encryption key for secure properties
     required: true
+  platform_client_id:
+    description: Anypoint Platform Organization client ID
+    required: true
+  platform_client_secret:
+    description: Anypoint Platform Organization client secret
+    required: true
 
 runs:
   using: composite
@@ -47,7 +53,12 @@ runs:
       shell: bash
       run: |
         artifactName=${{ inputs.mule_file_path }}
-        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY}
+        mvn deploy -DskipTests \
+            -DmuleDeploy \
+            -Dartifact=${artifactName} \
+            -DencryptionKey=${ENCRYPTION_KEY} \
+            -Dplatform.clientId=${PLATFORM_CLIENT_ID} \
+            -Dplatform.clientSecret=${PLATFORM_CLIENT_SECRET}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
@@ -57,3 +68,5 @@ runs:
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
         ENCRYPTION_KEY: ${{ inputs.encryption_key }}
+        PLATFORM_CLIENT_ID: ${{ inputs.platform_client_id }}
+        PLATFORM_CLIENT_SECRET: ${{ inputs.platform_client_secret }}

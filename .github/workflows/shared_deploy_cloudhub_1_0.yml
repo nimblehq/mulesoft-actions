@@ -23,6 +23,11 @@ on:
         required: true
       ENCRYPTION_KEY:
         required: true
+      PLATFORM_CLIENT_ID:
+        required: true
+      PLATFORM_CLIENT_SECRET:
+        required: true
+
 
 jobs:
   deploy:
@@ -42,7 +47,7 @@ jobs:
           use_artifacts: false
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.2
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.3
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
@@ -54,3 +59,5 @@ jobs:
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
+          platform_client_id: ${{ secrets.PLATFORM_CLIENT_ID }}
+          platform_client_secret: ${{ secrets.PLATFORM_CLIENT_SECRET }}
