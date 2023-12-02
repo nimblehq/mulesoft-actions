@@ -1,0 +1,27 @@
+name: Publish Assets to Exchange
+description: Publish the assets to AnyPoint Exchange
+inputs:
+  org_id:
+    description: AnyPoint Organization ID or Business Group ID
+    required: true
+  connected_app_client_id:
+    description: Connected App Client ID
+    required: true
+  connected_app_client_secret:
+    description: Connected App Client Secret
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Install API Catalog CLI
+      shell: bash
+      run: npm install -g api-catalog-cli@1.1.0
+
+    - name: Publish API docs to Anypoint Exchange
+      shell: bash
+      env:
+        ORG_ID: ${{ inputs.org_id }}
+        CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
+        CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
+      run: api-catalog publish-asset -d catalog.yaml --organization="$ORG_ID" --client_id="$CONNECTED_APP_CLIENT_ID" --client_secret="$CONNECTED_APP_CLIENT_SECRET"
