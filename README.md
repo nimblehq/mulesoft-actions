@@ -375,7 +375,7 @@ Action to bump version for the Mule app. See [bump_version_app/action.yml](bump_
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/bump_version_app@v1
+- uses: nimblehq/mulesoft-actions/bump_version_app@v1.4
   with:
     # New version to bump
     # Required
@@ -407,7 +407,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Bump Version
-        uses: nimblehq/mulesoft-actions/bump_version_app@v1
+        uses: nimblehq/mulesoft-actions/bump_version_app@v1.4
         with:
           new_version: ${{ inputs.new_version }}
           assignees: nimble-bot
