@@ -22,7 +22,7 @@ runs:
     - name: Set the new version in pom.xml
       shell: bash
       run: |
-        awk 'NR==1,/.*\<\/version\>/{sub(/.*\<\/version\>/, "c${{ inputs.new_version }}</version>")} 1' pom.xml > temp && mv temp pom.xml
+        perl -0777 -pe 's/<version>.*<\/version>/<version>${{ inputs.new_version }}<\/version>/' -i.bak pom.xml
         cat pom.xml
 
     - name: Create the pull request
