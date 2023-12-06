@@ -1,4 +1,4 @@
-name: Deploy to CloudHub 1.0
+name: Deploy to Excahnge 1.0
 
 on:
   workflow_call:
@@ -10,8 +10,6 @@ on:
       CONTD_APP_CLIENT_ID:
         required: true
       CONTD_APP_CLIENT_SECRET:
-        required: true
-      BUSINESS_GROUP_ID:
         required: true
 
 jobs:
