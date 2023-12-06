@@ -12,9 +12,9 @@ on:
         type: string
         default: 4.4.0
     secrets:
-      NEXUS_USERNAME:
+      CONTD_APP_CLIENT_ID:
         required: true
-      NEXUS_PASSWORD:
+      CONTD_APP_CLIENT_SECRET:
         required: true
       CLOUDHUB_BUSINESS_GROUP_ID:
         required: true
@@ -39,8 +39,8 @@ jobs:
       - name: Deploy to Exchange
         uses: nimblehq/mulesoft-actions/deploy_exchange_1_0@v1.4
         with:
-          nexus_username: ${{ secrets.NEXUS_USERNAME }}
-          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+          connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
