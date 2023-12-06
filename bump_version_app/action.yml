@@ -1,0 +1,51 @@
+name: Bump version for Mule app
+description: Bump version for Mule app
+inputs:
+  new_version:
+    description: New version
+    required: true
+  committer:
+    description: Committer for the pull request
+    required: true
+  assignees:
+    description: Assignees for the pull request
+  github_token:
+    description: GitHub token to create the pull request
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set the new version in pom.xml
+      shell: bash
+      run: |
+        perl -0777 -pe 's/<version>.*<\/version>/<version>${{ inputs.new_version }}<\/version>/' -i.bak pom.xml
+        cat pom.xml
+
+    - name: Create the pull request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        assignees: ${{ inputs.assignees }}
+        token: ${{ inputs.github_token }}
+        commit-message: Bump version to ${{ inputs.new_version }}
+        committer: ${{ inputs.committer }}
+        branch: chore/bump-version-to-${{ inputs.new_version }}
+        delete-branch: true
+        title: "[Chore] Bump version to ${{ inputs.new_version }}"
+        labels: |
+          type : chore
+        body: |
+          ## What happened 👀
+
+          Bump version to ${{ inputs.new_version }}
+
+          ## Insight 📝
+
+          Automatically created by the Bump Version workflow.
+
+          ## Proof Of Work 📹
+
+          On the Files changed tab
