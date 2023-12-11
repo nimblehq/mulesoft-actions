@@ -7,14 +7,15 @@ inputs:
   connected_app_client_secret:
     description: CloudHub connected app client secret
     required: true
+  cloudhub_business_group_id:
+    description: CloudHub business group ID
+    required: true
   maven_settings_path:
     description: Maven settings file path
     required: true
   mule_file_path:
     description: Mule file path
     required: true
-  cloudhub_business_group_id:
-    description: CloudHub business group ID
   mule_runtime_version:
     description: Mule runtime version
     default: 4.4.0
