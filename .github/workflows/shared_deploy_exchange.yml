@@ -16,7 +16,7 @@ on:
         required: true
       CONTD_APP_CLIENT_SECRET:
         required: true
-      CLOUDHUB_BUSINESS_GROUP_ID:
+      BUSINESS_GROUP_ID:
         required: true
 
 jobs:
@@ -42,6 +42,6 @@ jobs:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
-          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}

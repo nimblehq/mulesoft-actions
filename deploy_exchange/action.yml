@@ -2,13 +2,13 @@ name: Deploy to Anypoint Exchange
 description: Deploy to Anypoint Exchange with Maven
 inputs:
   connected_app_client_id:
-    description: CloudHub connected app client ID
+    description: Connected app client ID
     required: true
   connected_app_client_secret:
-    description: CloudHub connected app client secret
+    description: Connected app client secret
     required: true
-  cloudhub_business_group_id:
-    description: CloudHub business group ID
+  business_group_id:
+    description: Business group ID
     required: true
   maven_settings_path:
     description: Maven settings file path
@@ -26,9 +26,9 @@ runs:
     - name: Deploy to Anypoint Exchange
       shell: bash
       run: |
-        mvn deploy --settings ${{ inputs.maven_settings_path }} -DskipTests -DbusinessGroupId=${CLOUDHUB_BUSINESS_GROUP_ID}
+        mvn deploy --settings ${{ inputs.maven_settings_path }} -DskipTests
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
-        CLOUDHUB_BUSINESS_GROUP_ID: ${{ inputs.cloudhub_business_group_id }}
+        BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
