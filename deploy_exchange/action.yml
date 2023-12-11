@@ -1,5 +1,5 @@
-name: Deploy to Exchange 1.0
-description: Deploy to Exchange 1.0 with Maven
+name: Deploy to Anypoint Exchange
+description: Deploy to Anypoint Exchange with Maven
 inputs:
   connected_app_client_id:
     description: CloudHub connected app client ID
@@ -22,7 +22,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Deploy to Exchange
+    - name: Deploy to Anypoint Exchange
       shell: bash
       run: |
         mvn deploy --settings ${{ inputs.maven_settings_path }} -DskipTests -DbusinessGroupId=${CLOUDHUB_BUSINESS_GROUP_ID}

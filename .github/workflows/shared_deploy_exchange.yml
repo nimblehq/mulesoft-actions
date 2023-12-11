@@ -1,4 +1,4 @@
-name: Deploy to Excahnge 1.0
+name: Deploy to Anypoint Exchange
 
 on:
   workflow_call:
@@ -36,8 +36,8 @@ jobs:
         with:
           use_artifacts: false
 
-      - name: Deploy to Exchange
-        uses: nimblehq/mulesoft-actions/deploy_exchange_1_0@v1.4
+      - name: Deploy to Anypoint Exchange
+        uses: nimblehq/mulesoft-actions/deploy_exchange@v1.4
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
