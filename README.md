@@ -317,6 +317,10 @@ jobs:
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
 ```
 
+### Deploy Mule Connector to Anypoint Exchange
+
+Action to Deploy the Mule Connector to Anypoint Exchange. See [deploy_exchange/action.yml](deploy_exchange/action.yml)
+
 ### Bump version for the documentation
 
 Action to bump version for the documentation. See [bump_version_doc/action.yml](bump_version_doc/action.yml)
@@ -531,6 +535,10 @@ jobs:
       CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
 ```
+
+### Shared Deploy to AnyPoint Exchange Workflow
+
+Workflow to deploy the Mule Connector to AnyPoint Exchange. See [.github/workflows/shared_deploy_exchange.yml](.github/workflows/shared_deploy_exchange.yml)
 
 ## License
 
