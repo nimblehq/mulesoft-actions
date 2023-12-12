@@ -20,6 +20,15 @@ inputs:
   encryption_key:
     description: Encryption key for secure properties
     required: true
+  connected_app_client_id:
+    description:  CloudHub connected app client ID
+    required: false
+  connected_app_client_secret:
+    description:  CloudHub connected app client secret
+    required: false
+  business_group_id:
+    description: Business group ID
+    required: false
 
 runs:
   using: composite
@@ -31,6 +40,9 @@ runs:
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}
         ENCRYPTION_KEY: ${{ inputs.encryption_key }}
+        CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
+        CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
+        BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
 
     - name: Upload MUnit reports
       uses: actions/upload-artifact@v3

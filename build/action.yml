@@ -9,6 +9,26 @@ inputs:
   retention_days:
     description: Artifact retention days
     default: '1'
+  connected_app_client_id:
+    description: CloudHub connected app client ID
+    required: false
+  connected_app_client_secret:
+    description: CloudHub connected app client secret
+    required: false
+  business_group_id:
+    description: Business group ID
+    required: false
+  nexus_username:
+    description: Nexus username
+    required: false
+  nexus_password:
+    description: Nexus password
+    required: false
+  maven_settings_path:
+    description: Maven settings file path
+    required: true
+    default: .maven/settings.xml
+
 outputs:
   artifact_name:
     description: Artifact name
@@ -22,7 +42,13 @@ runs:
   steps:
     - name: Build with Maven
       shell: bash
-      run: mvn -B package --file pom.xml -DskipMunitTests
+      run: mvn -B package --settings ${{ inputs.maven_settings_path }} --file pom.xml -DskipMunitTests
+      env:
+        CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
+        CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
+        BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
+        NEXUS_USERNAME: ${{ inputs.nexus_username }}
+        NEXUS_PASSWORD: ${{ inputs.nexus_password }}
 
     - name: Stamp artifact file name with commit hash
       shell: bash

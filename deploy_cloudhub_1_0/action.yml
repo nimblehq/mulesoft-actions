@@ -19,10 +19,12 @@ inputs:
   cloudhub_environment:
     description: CloudHub environment
     required: true
-  cloudhub_business_group_id:
-    description: CloudHub business group ID
+  business_group_id:
+    description: Business group ID
+    required: true
   cloudhub_region:
     description: CloudHub region
+    required: true
     default: ap-southeast-1
   cloudhub_application_name:
     description: CloudHub application name
@@ -34,6 +36,16 @@ inputs:
   encryption_key:
     description: Encryption key for secure properties
     required: true
+  nexus_username:
+    description: Nexus username
+    required: false
+  nexus_password:
+    description: Nexus password
+    required: false
+  maven_settings_path:
+    description: Maven settings file path
+    required: true
+    default: .maven/settings.xml
 
 runs:
   using: composite
@@ -48,13 +60,15 @@ runs:
       shell: bash
       run: |
         artifactName=${{ inputs.mule_file_path }}
-        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY}
+        mvn deploy --settings ${{ inputs.maven_settings_path }} -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
         CLOUDHUB_ENVIRONMENT: ${{ inputs.cloudhub_environment }}
-        CLOUDHUB_BUSINESS_GROUP_ID: ${{ inputs.cloudhub_business_group_id }}
+        BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
         CLOUDHUB_REGION: ${{ inputs.cloudhub_region }}
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
         ENCRYPTION_KEY: ${{ inputs.encryption_key }}
+        NEXUS_USERNAME: ${{ inputs.nexus_username }}
+        NEXUS_PASSWORD: ${{ inputs.nexus_password }}
