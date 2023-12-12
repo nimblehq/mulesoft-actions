@@ -91,7 +91,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
     # Required
     connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
 
-    # CloudHub Business Group ID
+    # Business Group ID
     # Required
     business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
 ```
@@ -161,7 +161,7 @@ Action to build with Maven. See [build/action.yml](build/action.yml)
     # Required
     connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
 
-    # CloudHub Business Group ID
+    # Business Group ID
     # Required
     business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
 ```
@@ -259,7 +259,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
     # Required
     cloudhub_environment: ${{ secrets.CLOUDHUB_ENVIRONMENT }}
 
-    # CloudHub Business Group ID
+    # Business Group ID
     # Required
     business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
 
@@ -524,7 +524,7 @@ Workflow to run MUnit tests for Mulesoft projects. See [.github/workflows/shared
     # Required
     CONTD_APP_CLIENT_SECRET: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
 
-    # CloudHub business group ID
+    # Business Group ID
     # Required
     BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
 ```
@@ -591,7 +591,7 @@ Create a new environment for deployment and set the needed environment variables
     # Required
     CONTD_APP_CLIENT_SECRET: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
 
-    # CloudHub business group ID
+    # Business Group ID
     # Required
     BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
 
