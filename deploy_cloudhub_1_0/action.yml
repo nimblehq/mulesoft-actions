@@ -29,6 +29,7 @@ inputs:
     required: true
   mule_runtime_version:
     description: Mule runtime version
+    required: true
     default: 4.4.0
   encryption_key:
     description: Encryption key for secure properties

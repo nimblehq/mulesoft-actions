@@ -16,7 +16,7 @@ inputs:
     default: 'true'
   retention_days:
     description: Artifact retention days
-    default: 1
+    default: '1'
   encryption_key:
     description: Encryption key for secure properties
     required: true

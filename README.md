@@ -77,7 +77,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
 
     # Artifact retention days
     # Default: 1
-    retention_days: 1
+    retention_days: '1'
 
     # Encryption Key for secure properties
     # Required
@@ -227,6 +227,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
 
     # Mule runtime version
     # Default: 4.4.0
+    # Required
     mule_runtime_version: 4.4.0
 
     # Mule environment
@@ -316,6 +317,10 @@ jobs:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
 ```
+
+### Deploy Mule Connector to Anypoint Exchange
+
+Action to Deploy the Mule Connector to Anypoint Exchange. See [deploy_exchange/action.yml](deploy_exchange/action.yml)
 
 ### Bump version for the documentation
 
@@ -492,6 +497,7 @@ Create a new environment for deployment and set the needed environment variables
 
     # Mule runtime version
     # Default: 4.4.0
+    # Required
     mule_runtime_version: 4.4.0
 
   secrets:
@@ -531,6 +537,10 @@ jobs:
       CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
 ```
+
+### Shared Deploy to AnyPoint Exchange Workflow
+
+Workflow to deploy the Mule Connector to AnyPoint Exchange. See [.github/workflows/shared_deploy_exchange.yml](.github/workflows/shared_deploy_exchange.yml)
 
 ## License
 
