@@ -29,16 +29,22 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1
+        uses: nimblehq/mulesoft-actions/setup@v1.5
 
       - name: Build with Maven
-        uses: nimblehq/mulesoft-actions/build@v1
+        uses: nimblehq/mulesoft-actions/build@v1.5
         id: build
         with:
           use_artifacts: false
+          connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+          connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+          business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
+          nexus_username: ${{ secrets.NEXUS_USERNAME }}
+          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to Anypoint Exchange
-        uses: nimblehq/mulesoft-actions/deploy_exchange@v1.4
+        uses: nimblehq/mulesoft-actions/deploy_exchange@v1.5
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}

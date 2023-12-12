@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1
+        uses: nimblehq/mulesoft-actions/setup@v1.5
 
       - name: Run MUnit tests
         uses: nimblehq/mulesoft-actions/test@v1.5
