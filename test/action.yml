@@ -22,13 +22,13 @@ inputs:
     required: true
   connected_app_client_id:
     description:  CloudHub connected app client ID
-    required: true
+    required: false
   connected_app_client_secret:
     description:  CloudHub connected app client secret
-    required: true
+    required: false
   business_group_id:
     description: Business group ID
-    required: true
+    required: false
 
 runs:
   using: composite

@@ -11,18 +11,19 @@ inputs:
     default: '1'
   connected_app_client_id:
     description: CloudHub connected app client ID
-    required: true
+    required: false
   connected_app_client_secret:
     description: CloudHub connected app client secret
-    required: true
+    required: false
   business_group_id:
     description: Business group ID
+    required: false
   nexus_username:
     description: Nexus username
-    required: true
+    required: false
   nexus_password:
     description: Nexus password
-    required: true
+    required: false
   maven_settings_path:
     description: Maven settings file path
     required: true

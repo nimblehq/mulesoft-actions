@@ -36,10 +36,10 @@ inputs:
     required: true
   nexus_username:
     description: Nexus username
-    required: true
+    required: false
   nexus_password:
     description: Nexus password
-    required: true
+    required: false
   maven_settings_path:
     description: Maven settings file path
     required: true

@@ -30,9 +30,9 @@ on:
       ENCRYPTION_KEY:
         required: true
       NEXUS_USERNAME:
-        required: true
+        required: false
       NEXUS_PASSWORD:
-        required: true
+        required: false
 
 jobs:
   deploy:
