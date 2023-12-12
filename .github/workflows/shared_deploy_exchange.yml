@@ -10,6 +10,7 @@ on:
         default: .maven/settings.xml
       mule_runtime_version:
         type: string
+        required: true
         default: 4.4.0
     secrets:
       CONTD_APP_CLIENT_ID:

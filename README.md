@@ -77,7 +77,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
 
     # Artifact retention days
     # Default: 1
-    retention_days: 1
+    retention_days: '1'
 
     # Encryption Key for secure properties
     # Required
@@ -227,6 +227,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
 
     # Mule runtime version
     # Default: 4.4.0
+    # Required
     mule_runtime_version: 4.4.0
 
     # Mule environment
@@ -496,6 +497,7 @@ Create a new environment for deployment and set the needed environment variables
 
     # Mule runtime version
     # Default: 4.4.0
+    # Required
     mule_runtime_version: 4.4.0
 
   secrets:
