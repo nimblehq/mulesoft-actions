@@ -21,8 +21,10 @@ inputs:
     required: true
   business_group_id:
     description: Business group ID
+    required: true
   cloudhub_region:
     description: CloudHub region
+    required: true
     default: ap-southeast-1
   cloudhub_application_name:
     description: CloudHub application name
