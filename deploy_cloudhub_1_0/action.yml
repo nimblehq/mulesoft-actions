@@ -34,6 +34,16 @@ inputs:
   encryption_key:
     description: Encryption key for secure properties
     required: true
+  nexus_username:
+    description: Nexus username
+    required: true
+  nexus_password:
+    description: Nexus password
+    required: true
+  maven_settings_path:
+    description: Maven settings file path
+    required: true
+    default: .maven/settings.xml
 
 runs:
   using: composite
@@ -48,7 +58,7 @@ runs:
       shell: bash
       run: |
         artifactName=${{ inputs.mule_file_path }}
-        mvn deploy -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY}
+        mvn deploy --settings ${{ inputs.maven_settings_path }} -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
@@ -58,3 +68,5 @@ runs:
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
         ENCRYPTION_KEY: ${{ inputs.encryption_key }}
+        NEXUS_USERNAME: ${{ inputs.nexus_username }}
+        NEXUS_PASSWORD: ${{ inputs.nexus_password }}

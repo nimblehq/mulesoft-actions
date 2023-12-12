@@ -15,6 +15,11 @@ on:
         type: string
         required: true
         default: 4.4.0
+      maven_settings_path:
+        description: Maven settings file path
+        type: string
+        required: true
+        default: .maven/settings.xml
     secrets:
       CONTD_APP_CLIENT_ID:
         required: true
@@ -23,6 +28,10 @@ on:
       CLOUDHUB_BUSINESS_GROUP_ID:
         required: true
       ENCRYPTION_KEY:
+        required: true
+      NEXUS_USERNAME:
+        required: true
+      NEXUS_PASSWORD:
         required: true
 
 jobs:
@@ -37,13 +46,19 @@ jobs:
         uses: nimblehq/mulesoft-actions/setup@v1
 
       - name: Build with Maven
-        uses: nimblehq/mulesoft-actions/build@v1
+        uses: nimblehq/mulesoft-actions/build@v1.5
         id: build
         with:
           use_artifacts: false
+          connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+          connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          nexus_username: ${{ secrets.NEXUS_USERNAME }}
+          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.2
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.5
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
@@ -55,3 +70,6 @@ jobs:
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
+          nexus_username: ${{ secrets.NEXUS_USERNAME }}
+          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          maven_settings_path: ${{ inputs.maven_settings_path }}
