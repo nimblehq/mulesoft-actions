@@ -23,7 +23,7 @@ on:
         required: true
       CONTD_APP_CLIENT_SECRET:
         required: true
-      CLOUDHUB_BUSINESS_GROUP_ID:
+      BUSINESS_GROUP_ID:
         required: true
 
 concurrency:
@@ -51,4 +51,4 @@ jobs:
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
-          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}

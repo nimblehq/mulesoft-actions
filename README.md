@@ -93,7 +93,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
 
     # CloudHub Business Group ID
     # Required
-    cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+    business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
 ```
 
 Basic:
@@ -120,7 +120,7 @@ jobs:
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
           connected_app_client_id: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
-          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
 ```
 
 ### Build with Maven
@@ -163,7 +163,7 @@ Action to build with Maven. See [build/action.yml](build/action.yml)
 
     # CloudHub Business Group ID
     # Required
-    cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+    business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
 ```
 
 Basic:
@@ -190,7 +190,7 @@ jobs:
           maven_settings_path: .maven/settings.xml
           connected_app_client_id: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
-          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
 ```
 
 ### Deploy to CloudHub 1.0
@@ -214,7 +214,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
           <muleVersion>${app.runtime}</muleVersion>
           <applicationName>${CLOUDHUB_APPLICATION_NAME}</applicationName>
           <environment>${CLOUDHUB_ENVIRONMENT}</environment>
-          <businessGroupId>${CLOUDHUB_BUSINESS_GROUP_ID}</businessGroupId>
+          <businessGroupId>${BUSINESS_GROUP_ID}</businessGroupId>
           <region>${CLOUDHUB_REGION}</region>
           <connectedAppClientId>${CONNECTED_APP_CLIENT_ID}</connectedAppClientId>
           <connectedAppClientSecret>${CONNECTED_APP_CLIENT_SECRET}</connectedAppClientSecret>
@@ -261,7 +261,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
 
     # CloudHub Business Group ID
     # Required
-    cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+    business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
 
     # CloudHub Region
     # Required
@@ -323,7 +323,7 @@ jobs:
         uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.2
         with:
           cloudhub_environment: ${{ secrets.CLOUDHUB_ENVIRONMENT }}
-          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
           cloudhub_region: ${{ secrets.CLOUDHUB_REGION }}
           mule_runtime_version: ${{ secrets.MULE_VERSION }}
           mule_environment: ${{ secrets.MULE_ENVIRONMENT }}
@@ -526,7 +526,7 @@ Workflow to run MUnit tests for Mulesoft projects. See [.github/workflows/shared
 
     # CloudHub business group ID
     # Required
-    CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+    BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
 ```
 
 Basic:
@@ -546,7 +546,7 @@ jobs:
       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       CONTD_APP_CLIENT_ID: ${{ secrets.CONTD_APP_CLIENT_ID }}
       CONTD_APP_CLIENT_SECRET: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
-      CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+      BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
 ```
 
 ### Shared Deploy to CloudHub 1.0 Workflow
@@ -593,7 +593,7 @@ Create a new environment for deployment and set the needed environment variables
 
     # CloudHub business group ID
     # Required
-    CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+    BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
 
     # Encryption Key for secure properties
     # Required
@@ -624,7 +624,7 @@ jobs:
     secrets:
       CONTD_APP_CLIENT_ID: ${{ secrets.CONTD_APP_CLIENT_ID }}
       CONTD_APP_CLIENT_SECRET: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
-      CLOUDHUB_BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
+      BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}

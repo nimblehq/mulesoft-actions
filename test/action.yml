@@ -26,8 +26,8 @@ inputs:
   connected_app_client_secret:
     description:  CloudHub connected app client secret
     required: true
-  cloudhub_business_group_id:
-    description: CloudHub business group ID
+  business_group_id:
+    description: Business group ID
     required: true
 
 runs:
@@ -42,7 +42,7 @@ runs:
         ENCRYPTION_KEY: ${{ inputs.encryption_key }}
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
-        CLOUDHUB_BUSINESS_GROUP_ID: ${{ inputs.cloudhub_business_group_id }}
+        BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
 
     - name: Upload MUnit reports
       uses: actions/upload-artifact@v3

@@ -25,7 +25,7 @@ on:
         required: true
       CONTD_APP_CLIENT_SECRET:
         required: true
-      CLOUDHUB_BUSINESS_GROUP_ID:
+      BUSINESS_GROUP_ID:
         required: true
       ENCRYPTION_KEY:
         required: true
@@ -52,7 +52,7 @@ jobs:
           use_artifacts: false
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
-          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
@@ -64,7 +64,7 @@ jobs:
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
           cloudhub_environment: ${{ inputs.cloudhub_environment }}
           cloudhub_region: ${{ inputs.cloudhub_region }}
-          cloudhub_business_group_id: ${{ secrets.CLOUDHUB_BUSINESS_GROUP_ID }}
+          business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
           cloudhub_application_name: ${{ inputs.cloudhub_application_name }}
           use_artifact: false
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
