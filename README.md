@@ -256,10 +256,10 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
     connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
 
     # AnyPoint Platform Client ID
-    anypoint_platform_client_id: ${{ secrets.ANYPOINT_PLATFORM_CLIENT_ID }}
+    platform_client_id: ${{ secrets.PLATFORM_CLIENT_ID }}
 
     # AnyPoint Platform Client Secret
-    anypoint_platform_client_secret: ${{ secrets.ANYPOINT_PLATFORM_CLIENT_SECRET }}
+    platform_client_secret: ${{ secrets.PLATFORM_CLIENT_SECRET }}
 
     # CloudHub environment
     # Required
@@ -598,10 +598,10 @@ Create a new environment for deployment and set the needed environment variables
     CONTD_APP_CLIENT_SECRET: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
 
     # AnyPoint Platform Client ID
-    ANYPOINT_PLATFORM_CLIENT_ID: ${{ secrets.ANYPOINT_PLATFORM_CLIENT_ID }}
+    PLATFORM_CLIENT_ID: ${{ secrets.PLATFORM_CLIENT_ID }}
 
     # AnyPoint Platform Client Secret
-    ANYPOINT_PLATFORM_CLIENT_SECRET: ${{ secrets.ANYPOINT_PLATFORM_CLIENT_SECRET }}
+    PLATFORM_CLIENT_SECRET: ${{ secrets.PLATFORM_CLIENT_SECRET }}
 
     # Business Group ID
     # Required

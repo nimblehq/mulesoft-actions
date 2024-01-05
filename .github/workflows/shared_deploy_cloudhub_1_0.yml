@@ -25,9 +25,9 @@ on:
         required: true
       CONTD_APP_CLIENT_SECRET:
         required: true
-      ANYPOINT_PLATFORM_CLIENT_ID:
+      PLATFORM_CLIENT_ID:
         required: false
-      ANYPOINT_PLATFORM_CLIENT_SECRET:
+      PLATFORM_CLIENT_SECRET:
         required: false
       BUSINESS_GROUP_ID:
         required: true
@@ -66,8 +66,8 @@ jobs:
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
-          anypoint_platform_client_id: ${{ secrets.ANYPOINT_PLATFORM_CLIENT_ID }}
-          anypoint_platform_client_secret: ${{ secrets.ANYPOINT_PLATFORM_CLIENT_SECRET }}
+          platform_client_id: ${{ secrets.PLATFORM_CLIENT_ID }}
+          platform_client_secret: ${{ secrets.PLATFORM_CLIENT_SECRET }}
           cloudhub_environment: ${{ inputs.cloudhub_environment }}
           cloudhub_region: ${{ inputs.cloudhub_region }}
           business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}

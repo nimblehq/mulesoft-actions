@@ -16,10 +16,10 @@ inputs:
   connected_app_client_secret:
     description: CloudHub connected app client secret
     required: true
-  anypoint_platform_client_id:
+  platform_client_id:
     description: Anypoint Platform Client ID
     required: false
-  anypoint_platform_client_secret:
+  platform_client_secret:
     description: Anypoint Platform Client Secret
     required: false
   cloudhub_environment:
@@ -70,8 +70,8 @@ runs:
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
-        ANYPOINT_PLATFORM_CLIENT_ID: ${{ inputs.anypoint_platform_client_id }}
-        ANYPOINT_PLATFORM_CLIENT_SECRET: ${{ inputs.anypoint_platform_client_secret }}
+        PLATFORM_CLIENT_ID: ${{ inputs.platform_client_id }}
+        PLATFORM_CLIENT_SECRET: ${{ inputs.platform_client_secret }}
         CLOUDHUB_ENVIRONMENT: ${{ inputs.cloudhub_environment }}
         BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
         CLOUDHUB_REGION: ${{ inputs.cloudhub_region }}
