@@ -233,7 +233,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.5
+- uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.6
   with:
     # Use artifact from `build` action
     # Default: false
@@ -254,6 +254,12 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
     # CloudHub connected app client secret
     # Required
     connected_app_client_secret: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
+
+    # AnyPoint Platform Client ID
+    platform_client_id: ${{ secrets.PLATFORM_CLIENT_ID }}
+
+    # AnyPoint Platform Client Secret
+    platform_client_secret: ${{ secrets.PLATFORM_CLIENT_SECRET }}
 
     # CloudHub environment
     # Required
@@ -558,7 +564,7 @@ Workflow to deploy Mulesoft projects to CloudHub 1.0. See [.github/workflows/sha
 Create a new environment for deployment and set the needed environment variables, secrets.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1.5
+- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1.6
   with:
     # CloudHub application name
     # Required
@@ -590,6 +596,12 @@ Create a new environment for deployment and set the needed environment variables
     # CloudHub connected app client secret
     # Required
     CONTD_APP_CLIENT_SECRET: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
+
+    # AnyPoint Platform Client ID
+    PLATFORM_CLIENT_ID: ${{ secrets.PLATFORM_CLIENT_ID }}
+
+    # AnyPoint Platform Client Secret
+    PLATFORM_CLIENT_SECRET: ${{ secrets.PLATFORM_CLIENT_SECRET }}
 
     # Business Group ID
     # Required
