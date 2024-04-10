@@ -261,6 +261,9 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
     # AnyPoint Platform Client Secret
     platform_client_secret: ${{ secrets.PLATFORM_CLIENT_SECRET }}
 
+    # NewRelic Api Key
+    new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
+
     # CloudHub environment
     # Required
     cloudhub_environment: ${{ secrets.CLOUDHUB_ENVIRONMENT }}
@@ -602,6 +605,9 @@ Create a new environment for deployment and set the needed environment variables
 
     # AnyPoint Platform Client Secret
     PLATFORM_CLIENT_SECRET: ${{ secrets.PLATFORM_CLIENT_SECRET }}
+
+    # NewRelic Api Key
+    NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
 
     # Business Group ID
     # Required
