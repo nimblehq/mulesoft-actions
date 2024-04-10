@@ -33,11 +33,11 @@ on:
         required: true
       ENCRYPTION_KEY:
         required: true
-      NEW_RELIC_API_KEY:
-        required: false
       NEXUS_USERNAME:
         required: false
       NEXUS_PASSWORD:
+        required: false
+      NEW_RELIC_API_KEY:
         required: false
 
 jobs:
@@ -78,7 +78,7 @@ jobs:
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
-          new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
