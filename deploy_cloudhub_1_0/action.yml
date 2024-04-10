@@ -69,7 +69,7 @@ runs:
       shell: bash
       run: |
         artifactName=${{ inputs.mule_file_path }}
-        mvn deploy --settings ${{ inputs.maven_settings_path }} -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY} -Dnewrelic.apiKey=${NEW_RELIC_API_KEY} -DmuleEnv=${CLOUDHUB_ENVIRONMENT}
+        mvn deploy --settings ${{ inputs.maven_settings_path }} -DskipTests -DmuleDeploy -Dartifact=${artifactName} -DencryptionKey=${ENCRYPTION_KEY} -Dnewrelic.apiKey=${{ inputs.new_relic_api_key }} -DmuleEnv=${CLOUDHUB_ENVIRONMENT}
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
