@@ -223,6 +223,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
           <properties>
             <mule.env>${MULE_ENVIRONMENT}</mule.env>
             <securedKey>${encryptionKey}</securedKey>
+            <newrelic.apiKey>${NEWRELIC_API_KEY}</newrelic.apiKey>
           </properties>
         </cloudHubDeployment>
         <!-- End of configuration -->
@@ -344,6 +345,7 @@ jobs:
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           maven_settings_path: .maven/settings.xml
 ```
 
@@ -646,6 +648,7 @@ jobs:
       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+      NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
 ```
 
 ### Shared Deploy to AnyPoint Exchange Workflow
