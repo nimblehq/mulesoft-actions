@@ -20,6 +20,9 @@ on:
         type: string
         required: true
         default: .maven/settings.xml
+      new_relic_api_key:
+        type: string
+        required: false
     secrets:
       CONTD_APP_CLIENT_ID:
         required: true
@@ -36,8 +39,6 @@ on:
       NEXUS_USERNAME:
         required: false
       NEXUS_PASSWORD:
-        required: false
-      NEW_RELIC_API_KEY:
         required: false
 
 jobs:
@@ -80,5 +81,5 @@ jobs:
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
-          new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
+          new_relic_api_key: ${{ inputs.new_relic_api_key }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
