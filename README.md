@@ -234,7 +234,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.7
+- uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.14
   with:
     # Use artifact from `build` action
     # Default: false
@@ -570,7 +570,7 @@ Workflow to deploy Mulesoft projects to CloudHub 1.0. See [.github/workflows/sha
 Create a new environment for deployment and set the needed environment variables, secrets.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1.7
+- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1.14
   with:
     # CloudHub application name
     # Required
