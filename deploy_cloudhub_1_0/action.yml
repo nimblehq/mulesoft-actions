@@ -48,6 +48,9 @@ inputs:
   nexus_password:
     description: Nexus password
     required: false
+  new_relic_api_key:
+    description: NewRelic Api Key
+    required: false
   maven_settings_path:
     description: Maven settings file path
     required: true
@@ -80,3 +83,4 @@ runs:
         ENCRYPTION_KEY: ${{ inputs.encryption_key }}
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}
+        NEW_RELIC_API_KEY: ${{ inputs.new_relic_api_key }}

@@ -223,6 +223,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
           <properties>
             <mule.env>${MULE_ENVIRONMENT}</mule.env>
             <securedKey>${encryptionKey}</securedKey>
+            <newrelic.apiKey>${NEWRELIC_API_KEY}</newrelic.apiKey>
           </properties>
         </cloudHubDeployment>
         <!-- End of configuration -->
@@ -233,7 +234,7 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.6
+- uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.7
   with:
     # Use artifact from `build` action
     # Default: false
@@ -298,6 +299,10 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
     # Required: false (Required in case the project uses Nexus Enterprise Repository)
     nexus_password: ${{ secrets.NEXUS_PASSWORD }}
 
+    # NewRelic Api Key
+    # Required: false
+    new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
+
     # Maven settings file path
     # Required
     # Default: .maven/settings.xml
@@ -341,6 +346,7 @@ jobs:
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           maven_settings_path: .maven/settings.xml
 ```
 
@@ -564,7 +570,7 @@ Workflow to deploy Mulesoft projects to CloudHub 1.0. See [.github/workflows/sha
 Create a new environment for deployment and set the needed environment variables, secrets.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1.6
+- uses: nimblehq/mulesoft-actions/.github/workflows/shared_deploy_cloudhub_1_0.yml@v1.7
   with:
     # CloudHub application name
     # Required
@@ -618,6 +624,10 @@ Create a new environment for deployment and set the needed environment variables
     # Nexus password
     # Required: false (Required in case the project uses Nexus Enterprise Repository)
     NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+
+    # NewRelic Api Key
+    # Required: false
+    NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
 ```
 
 Basic:
@@ -640,6 +650,7 @@ jobs:
       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+      NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
 ```
 
 ### Shared Deploy to AnyPoint Exchange Workflow

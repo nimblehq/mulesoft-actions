@@ -37,6 +37,8 @@ on:
         required: false
       NEXUS_PASSWORD:
         required: false
+      NEW_RELIC_API_KEY:
+        required: false
 
 jobs:
   deploy:
@@ -62,7 +64,7 @@ jobs:
           maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.6
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.7
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
@@ -78,4 +80,5 @@ jobs:
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
