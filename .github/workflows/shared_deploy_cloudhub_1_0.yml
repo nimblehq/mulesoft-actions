@@ -64,8 +64,8 @@ jobs:
         if: ${{ inputs.main_api_interface_path }}
         shell: bash
         run: |
-          perl -0777 -pe 's/resource::b1493a71-3550-4d96-a623-e3f11d038f62/resource::${{ secrets.BUSINESS_GROUP_ID }}/' -i.bak {{ inputs.main_api_interface_path }}
-          cat {{ inputs.main_api_interface_path }}
+          perl -0777 -pe 's/resource::b1493a71-3550-4d96-a623-e3f11d038f62/resource::${{ secrets.BUSINESS_GROUP_ID }}/' -i.bak ${{ inputs.main_api_interface_path }}
+          cat ${{ inputs.main_api_interface_path }}
 
       - name: Set up Mulesoft environment
         uses: nimblehq/mulesoft-actions/setup@v1.5
