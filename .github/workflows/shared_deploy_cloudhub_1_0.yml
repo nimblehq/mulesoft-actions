@@ -20,6 +20,11 @@ on:
         type: string
         required: true
         default: .maven/settings.xml
+      number_of_workers:
+        description: Number of workers
+        type: string
+        required: false
+        default: '1'
       main_api_interface_path:
         description: Main APIKit interface path
         type: string
@@ -83,7 +88,7 @@ jobs:
           maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.7
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.9
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
@@ -101,3 +106,4 @@ jobs:
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
+          number_of_workers: ${{ inputs.number_of_workers }}

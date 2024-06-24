@@ -55,6 +55,10 @@ inputs:
     description: Maven settings file path
     required: true
     default: .maven/settings.xml
+  number_of_workers:
+    description: Number of workers
+    required: false
+    default: '1'
 
 runs:
   using: composite
@@ -84,3 +88,4 @@ runs:
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}
         NEW_RELIC_API_KEY: ${{ inputs.new_relic_api_key }}
+        NUMBER_OF_WORKERS: ${{ inputs.number_of_workers }}
