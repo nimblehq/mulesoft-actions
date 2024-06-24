@@ -28,6 +28,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Remove when switching to the new Exchange - BUSINESS_GROUP_ID_GLOBAL_2 completely for all ENV (DEV, STAGING, PROD)
+      - name: Modify groupId in pom.xml
+        shell: bash
+        run: |
+          perl -0777 -pe 's/<groupId>b1493a71-3550-4d96-a623-e3f11d038f62<\/groupId>/<groupId>${{ secrets.BUSINESS_GROUP_ID }}<\/groupId>/' -i.bak pom.xml
+          cat pom.xml
+
       - name: Set up Mulesoft environment
         uses: nimblehq/mulesoft-actions/setup@v1.5
 
