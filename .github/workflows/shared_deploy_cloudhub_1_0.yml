@@ -20,6 +20,15 @@ on:
         type: string
         required: true
         default: .maven/settings.xml
+      number_of_workers:
+        description: Number of workers
+        type: string
+        required: false
+        default: '1'
+      main_api_interface_path:
+        description: Main APIKit interface path
+        type: string
+        required: false
     secrets:
       CONTD_APP_CLIENT_ID:
         required: true
@@ -48,6 +57,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Remove when switching to the new Exchange - BUSINESS_GROUP_ID_GLOBAL_2 completely for all ENV (DEV, STAGING, PROD)
+      - name: Modify groupId in pom.xml
+        shell: bash
+        run: |
+          perl -0777 -pe 's/<groupId>b1493a71-3550-4d96-a623-e3f11d038f62<\/groupId>/<groupId>${{ secrets.BUSINESS_GROUP_ID }}<\/groupId>/g' -i.bak pom.xml
+          cat pom.xml
+
+      # Remove when switching to the new Exchange - BUSINESS_GROUP_ID_GLOBAL_2 completely for all ENV (DEV, STAGING, PROD)
+      - name: Modify groupId in Main API Interface
+        if: ${{ inputs.main_api_interface_path }}
+        shell: bash
+        run: |
+          perl -0777 -pe 's/resource::b1493a71-3550-4d96-a623-e3f11d038f62/resource::${{ secrets.BUSINESS_GROUP_ID }}/' -i.bak ${{ inputs.main_api_interface_path }}
+          cat ${{ inputs.main_api_interface_path }}
+
       - name: Set up Mulesoft environment
         uses: nimblehq/mulesoft-actions/setup@v1.5
 
@@ -64,7 +88,7 @@ jobs:
           maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.7
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.9
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
@@ -82,3 +106,4 @@ jobs:
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
+          number_of_workers: ${{ inputs.number_of_workers }}
