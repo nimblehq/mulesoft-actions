@@ -32,7 +32,7 @@ jobs:
       - name: Modify groupId in pom.xml
         shell: bash
         run: |
-          perl -0777 -pe 's/<groupId>.*<\/groupId>/<groupId>${{ secrets.BUSINESS_GROUP_ID }}<\/groupId>/' -i.bak pom.xml
+          perl -0777 -pe 's/<groupId>[0-9a-fA-F\-]+<\/groupId>/<groupId>${{ secrets.BUSINESS_GROUP_ID }}<\/groupId>/' -i.bak pom.xml
           cat pom.xml
 
       - name: Set up Mulesoft environment
