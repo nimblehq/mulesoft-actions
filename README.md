@@ -71,10 +71,6 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
     # Default: .maven/settings.xml
     maven_settings_path: .maven/settings.xml
 
-    # Timeout in minutes
-    # Default: 15
-    timeout-minutes: 10
-
     # Upload MUnit reports to GitHub Actions Artifacts
     # Default: false
     upload_coverage_reports: false
@@ -519,6 +515,10 @@ Workflow to run MUnit tests for Mulesoft projects. See [.github/workflows/shared
     # Default: true
     upload_coverage_reports: true
 
+    # Timeout in minutes
+    # Default: 15
+    timeout-minutes: 10
+
   secrets:
     # Nexus username
     # Required
@@ -597,6 +597,10 @@ Create a new environment for deployment and set the needed environment variables
     # Required
     # Default: .maven/settings.xml
     maven_settings_path: .maven/settings.xml
+
+    # Timeout in minutes
+    # Default: 15
+    timeout-minutes: 10
 
   secrets:
     # CloudHub connected app client ID

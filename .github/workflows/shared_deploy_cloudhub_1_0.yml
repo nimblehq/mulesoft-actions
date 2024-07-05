@@ -29,6 +29,11 @@ on:
         description: Main APIKit interface path
         type: string
         required: false
+      timeout-minutes:
+        description: The maximum number of minutes to let a job run before GitHub automatically cancels it.
+        type: string
+        required: false
+        default: 15
     secrets:
       CONTD_APP_CLIENT_ID:
         required: true
@@ -53,6 +58,7 @@ jobs:
   deploy:
     name: Build and deploy
     runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
