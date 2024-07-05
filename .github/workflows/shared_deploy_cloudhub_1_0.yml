@@ -31,7 +31,7 @@ on:
         required: false
       timeout_minutes:
         description: The maximum number of minutes to let a job run before GitHub automatically cancels it.
-        type: string
+        type: number
         required: false
         default: 15
     secrets:
