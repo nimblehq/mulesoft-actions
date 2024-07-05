@@ -71,6 +71,10 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
     # Default: .maven/settings.xml
     maven_settings_path: .maven/settings.xml
 
+    # Timeout in minutes
+    # Default: 15
+    timeout-minutes: 10
+
     # Upload MUnit reports to GitHub Actions Artifacts
     # Default: false
     upload_coverage_reports: false
