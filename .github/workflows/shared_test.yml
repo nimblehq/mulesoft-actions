@@ -12,7 +12,7 @@ on:
         description: Upload MUnit reports to GitHub Actions Artifacts
         type: boolean
         default: true
-      timeout-minutes:
+      timeout_minutes:
         description: The maximum number of minutes to let a job run before GitHub automatically cancels it.
         type: string
         required: false
@@ -39,7 +39,7 @@ jobs:
   test:
     name: Run shared tests
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ inputs.timeout-minutes }}
+    timeout-minutes: ${{ inputs.timeout_minutes }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

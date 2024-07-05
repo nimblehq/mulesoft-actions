@@ -517,7 +517,7 @@ Workflow to run MUnit tests for Mulesoft projects. See [.github/workflows/shared
 
     # Timeout in minutes
     # Default: 15
-    timeout-minutes: 10
+    timeout_minutes: 10
 
   secrets:
     # Nexus username
@@ -600,7 +600,7 @@ Create a new environment for deployment and set the needed environment variables
 
     # Timeout in minutes
     # Default: 15
-    timeout-minutes: 10
+    timeout_minutes: 10
 
   secrets:
     # CloudHub connected app client ID
