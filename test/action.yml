@@ -34,7 +34,7 @@ runs:
   using: composite
   steps:
     - name: Test with Maven
-      run: mvn test --settings ${{ inputs.maven_settings_path }} -DsecuredKey=${ENCRYPTION_KEY}
+      run: mvn test --settings ${{ inputs.maven_settings_path }} -DsecuredKey=${ENCRYPTION_KEY} -Danypoint.platform.gatekeeper=disabled -DmuleEnv=DEV
       shell: bash
       env:
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
