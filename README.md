@@ -56,7 +56,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
 > The Nexus enterprise repository username and password are required to run MUnit tests on the CI server. Refer to this [document](https://docs.mulesoft.com/mule-runtime/4.4/maven-reference#configure-mule-repositories) for more information.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/test@v1.5
+- uses: nimblehq/mulesoft-actions/10
   with:
     # Nexus username
     # Required
@@ -112,7 +112,7 @@ jobs:
         uses: nimblehq/mulesoft-actions/setup@v1
 
       - name: Run MUnit tests
-        uses: nimblehq/mulesoft-actions/test@v1.2
+        uses: nimblehq/mulesoft-actions/test@v1.10
         with:
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
@@ -130,7 +130,7 @@ Action to build with Maven. See [build/action.yml](build/action.yml)
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/build@v1.5
+- uses: nimblehq/mulesoft-actions/build@v1.10
   with:
     # Upload build artifacts to GitHub Actions Artifacts
     # Default: true

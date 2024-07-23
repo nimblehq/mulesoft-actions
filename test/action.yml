@@ -33,6 +33,10 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Increase JAVA HEAP size
+      shell: bash
+      run: echo "JAVA_TOOL_OPTIONS=-Xmx5g -Xms1g" >> $GITHUB_ENV
+
     - name: Test with Maven
       run: mvn test --settings ${{ inputs.maven_settings_path }} -DsecuredKey=${ENCRYPTION_KEY}
       shell: bash
@@ -43,6 +47,7 @@ runs:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
         BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
+        JAVA_TOOL_OPTIONS: ${{ env.JAVA_TOOL_OPTIONS }}
 
     - name: Upload MUnit reports
       uses: actions/upload-artifact@v3

@@ -40,6 +40,10 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: Increase JAVA HEAP size
+      shell: bash
+      run: echo "JAVA_TOOL_OPTIONS=-Xmx5g -Xms1g" >> $GITHUB_ENV
+
     - name: Build with Maven
       shell: bash
       run: mvn -B package --settings ${{ inputs.maven_settings_path }} --file pom.xml -DskipMunitTests
@@ -49,6 +53,7 @@ runs:
         BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}
+        JAVA_TOOL_OPTIONS: ${{ env.JAVA_TOOL_OPTIONS }}
 
     - name: Stamp artifact file name with commit hash
       shell: bash
