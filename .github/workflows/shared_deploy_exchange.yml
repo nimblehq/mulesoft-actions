@@ -45,7 +45,7 @@ jobs:
         uses: nimblehq/mulesoft-actions/setup@v1.5
 
       - name: Build with Maven
-        uses: nimblehq/mulesoft-actions/build@v1.5
+        uses: nimblehq/mulesoft-actions/build@v1.10
         id: build
         with:
           use_artifacts: false
