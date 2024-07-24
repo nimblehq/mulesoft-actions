@@ -56,7 +56,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
 > The Nexus enterprise repository username and password are required to run MUnit tests on the CI server. Refer to this [document](https://docs.mulesoft.com/mule-runtime/4.4/maven-reference#configure-mule-repositories) for more information.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/10
+- uses: nimblehq/mulesoft-actions/test@v1.10
   with:
     # Nexus username
     # Required
