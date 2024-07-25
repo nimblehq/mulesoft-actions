@@ -25,6 +25,11 @@ on:
         type: string
         required: false
         default: '1'
+      http_log_level:
+        description: HTTP Log Level (OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL)
+        type: string
+        required: false
+        default: 'OFF'
       main_api_interface_path:
         description: Main APIKit interface path
         type: string
@@ -113,3 +118,4 @@ jobs:
           new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           number_of_workers: ${{ inputs.number_of_workers }}
+          http_log_level: ${{ inputs.http_log_level }}
