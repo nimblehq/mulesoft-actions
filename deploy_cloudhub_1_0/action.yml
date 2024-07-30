@@ -59,6 +59,10 @@ inputs:
     description: Number of workers
     required: false
     default: '1'
+  http_log_level:
+    description: HTTP Log Level (OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL)
+    required: false
+    default: 'OFF'
 
 runs:
   using: composite
@@ -89,3 +93,4 @@ runs:
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}
         NEW_RELIC_API_KEY: ${{ inputs.new_relic_api_key }}
         NUMBER_OF_WORKERS: ${{ inputs.number_of_workers }}
+        HTTP_LOG_LEVEL: ${{ inputs.http_log_level }}

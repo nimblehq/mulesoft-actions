@@ -25,6 +25,11 @@ on:
         type: string
         required: false
         default: '1'
+      http_log_level:
+        description: HTTP Log Level (OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL)
+        type: string
+        required: false
+        default: 'OFF'
       main_api_interface_path:
         description: Main APIKit interface path
         type: string
@@ -79,10 +84,10 @@ jobs:
           cat ${{ inputs.main_api_interface_path }}
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1.5
+        uses: nimblehq/mulesoft-actions/setup@v1.11.0
 
       - name: Build with Maven
-        uses: nimblehq/mulesoft-actions/build@v1.10
+        uses: nimblehq/mulesoft-actions/build@v1.11.0
         id: build
         with:
           use_artifacts: false
@@ -94,7 +99,7 @@ jobs:
           maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.9
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.11.0
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
@@ -113,3 +118,4 @@ jobs:
           new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           number_of_workers: ${{ inputs.number_of_workers }}
+          http_log_level: ${{ inputs.http_log_level }}
