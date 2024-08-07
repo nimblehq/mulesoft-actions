@@ -42,10 +42,10 @@ jobs:
           cat pom.xml
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1.5
+        uses: nimblehq/mulesoft-actions/setup@v1.12.0
 
       - name: Build with Maven
-        uses: nimblehq/mulesoft-actions/build@v1.10
+        uses: nimblehq/mulesoft-actions/build@v1.12.0
         id: build
         with:
           use_artifacts: false

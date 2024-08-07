@@ -19,7 +19,7 @@ Action to set up the Mulesoft environment. See [setup/action.yml](setup/action.y
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/setup@v1.5
+- uses: nimblehq/mulesoft-actions/setup@v1.12.0
   with:
     # Version of Java to use
     # Default: 8
@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1
+        uses: nimblehq/mulesoft-actions/setup@v1.12.0
 ```
 
 ### Run MUnit tests
@@ -56,7 +56,7 @@ Action to run MUnit tests. See [test/action.yml](test/action.yml)
 > The Nexus enterprise repository username and password are required to run MUnit tests on the CI server. Refer to this [document](https://docs.mulesoft.com/mule-runtime/4.4/maven-reference#configure-mule-repositories) for more information.
 
 ```yml
-- uses: nimblehq/mulesoft-actions/test@v1.10
+- uses: nimblehq/mulesoft-actions/test@v1.12.0
   with:
     # Nexus username
     # Required
@@ -109,10 +109,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1
+        uses: nimblehq/mulesoft-actions/setup@v1.12.0
 
       - name: Run MUnit tests
-        uses: nimblehq/mulesoft-actions/test@v1.10
+        uses: nimblehq/mulesoft-actions/test@v1.12.0
         with:
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
@@ -130,7 +130,7 @@ Action to build with Maven. See [build/action.yml](build/action.yml)
 #### Usage
 
 ```yml
-- uses: nimblehq/mulesoft-actions/build@v1.10
+- uses: nimblehq/mulesoft-actions/build@v1.12.0
   with:
     # Upload build artifacts to GitHub Actions Artifacts
     # Default: true
@@ -179,10 +179,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1
+        uses: nimblehq/mulesoft-actions/setup@v1.12.0
 
       - name: Build with Maven
-        uses: nimblehq/mulesoft-actions/build@v1
+        uses: nimblehq/mulesoft-actions/build@v1.12.0
         with:
           artifact_name: build-artifacts
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
@@ -322,10 +322,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1
+        uses: nimblehq/mulesoft-actions/setup@v1.12.0
 
       - name: Build with Maven
-        uses: nimblehq/mulesoft-actions/build@v1
+        uses: nimblehq/mulesoft-actions/build@v1.12.0
         with:
           use_artifacts: false
         id: build
