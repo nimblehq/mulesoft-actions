@@ -50,7 +50,7 @@ runs:
         JAVA_TOOL_OPTIONS: ${{ env.JAVA_TOOL_OPTIONS }}
 
     - name: Upload MUnit reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: inputs.upload_coverage_reports == 'true'
       with:
         name: munit-test-reports
