@@ -68,7 +68,7 @@ runs:
   using: composite
   steps:
     - name: Download artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       if: inputs.use_artifact == 'true'
       with:
         name: ${{ inputs.artifact_name }}
