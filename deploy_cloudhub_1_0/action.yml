@@ -59,6 +59,10 @@ inputs:
     description: Number of workers
     required: false
     default: '1'
+  worker_type:
+    description: Size of each worker (MICRO (0.1 vCores - default), SMALL (0.2), MEDIUM (1), LARGE (2), XLARGE (4), XXLARGE (8), 4XLARGE (16))
+    required: false
+    default: 'MICRO'
   http_log_level:
     description: HTTP Log Level (OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL)
     required: false
@@ -93,4 +97,5 @@ runs:
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}
         NEW_RELIC_API_KEY: ${{ inputs.new_relic_api_key }}
         NUMBER_OF_WORKERS: ${{ inputs.number_of_workers }}
+        WORKER_TYPE: ${{ inputs.worker_type }}
         HTTP_LOG_LEVEL: ${{ inputs.http_log_level }}
