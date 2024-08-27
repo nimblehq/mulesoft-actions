@@ -29,6 +29,11 @@ on:
         type: string
         required: false
         default: '1'
+      worker_type:
+        description: Size of each worker (MICRO - 0.1 vCores - default), SMALL - 0.2, MEDIUM - 1, LARGE - 2, XLARGE - 4, XXLARGE - 8, 4XLARGE - 16)
+        type: string
+        required: false
+        default: 'MICRO'
       http_log_level:
         description: HTTP Log Level (OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL)
         type: string
@@ -105,7 +110,7 @@ jobs:
           maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.12.0
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.13.0
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
@@ -124,4 +129,5 @@ jobs:
           new_relic_api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           number_of_workers: ${{ inputs.number_of_workers }}
+          worker_type: ${{ inputs.worker_type }}
           http_log_level: ${{ inputs.http_log_level }}
