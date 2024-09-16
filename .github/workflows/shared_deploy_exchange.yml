@@ -24,6 +24,10 @@ on:
         required: true
       BUSINESS_GROUP_ID:
         required: true
+      NEXUS_USERNAME:
+        required: false
+      NEXUS_PASSWORD:
+        required: false
 
 jobs:
   deploy:
@@ -49,6 +53,12 @@ jobs:
         id: build
         with:
           use_artifacts: false
+          connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
+          connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
+          business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
+          nexus_username: ${{ secrets.NEXUS_USERNAME }}
+          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+          maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to Anypoint Exchange
         uses: nimblehq/mulesoft-actions/deploy_exchange@v1.5
