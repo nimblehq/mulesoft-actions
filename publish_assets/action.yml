@@ -16,7 +16,7 @@ runs:
   steps:
     - name: Install API Catalog CLI
       shell: bash
-      run: npm install -g api-catalog-cli@1.1.0
+      run: npm install -g api-catalog-cli@1.1.2
 
     - name: Publish API docs to Anypoint Exchange
       shell: bash
