@@ -24,4 +24,17 @@ runs:
         ORG_ID: ${{ inputs.org_id }}
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
-      run: api-catalog publish-asset -d catalog.yaml --organization="$ORG_ID" --client_id="$CONNECTED_APP_CLIENT_ID" --client_secret="$CONNECTED_APP_CLIENT_SECRET"
+      run: |
+        output=$(api-catalog publish-asset -d catalog.yaml \
+          --organization="$ORG_ID" \
+          --client_id="$CONNECTED_APP_CLIENT_ID" \
+          --client_secret="$CONNECTED_APP_CLIENT_SECRET")
+
+        echo "$output"
+        
+        if echo "$output" | grep -E -q "Successfully cataloged|API successfully published"; then
+          echo "Publishing successful."
+        else
+          echo "Publishing failed. Exiting."
+          exit 1
+        fi
