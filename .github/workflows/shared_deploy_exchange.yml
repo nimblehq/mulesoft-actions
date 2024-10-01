@@ -12,6 +12,11 @@ on:
         type: string
         required: true
         default: 4.4.0
+      release_channel:
+        description: Release Channel (NONE, EDGE, LTS)
+        type: string
+        required: false
+        default: 'NONE'
       timeout_minutes:
         description: The maximum number of minutes to let a job run before GitHub automatically cancels it.
         type: number
@@ -69,3 +74,4 @@ jobs:
           business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
+          release_channel: ${{ inputs.release_channel }}

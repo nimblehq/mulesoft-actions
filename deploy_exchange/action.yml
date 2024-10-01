@@ -20,6 +20,11 @@ inputs:
     description: Mule runtime version
     required: true
     default: 4.4.0
+  release_channel:
+    description: Release Channel (NONE, EDGE, LTS)
+    type: string
+    required: false
+    default: 'NONE'
 
 runs:
   using: composite
@@ -32,4 +37,5 @@ runs:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
+        RELEASE_CHANNEL: ${{ inputs.release_channel }}
         BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}

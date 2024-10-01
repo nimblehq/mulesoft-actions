@@ -39,6 +39,11 @@ inputs:
     description: Mule runtime version
     required: true
     default: 4.4.0
+  release_channel:
+    description: Release Channel (NONE, EDGE, LTS)
+    type: string
+    required: false
+    default: 'NONE'
   encryption_key:
     description: Encryption key for secure properties
     required: true
@@ -92,6 +97,7 @@ runs:
         CLOUDHUB_REGION: ${{ inputs.cloudhub_region }}
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
+        RELEASE_CHANNEL: ${{ inputs.release_channel }}
         ENCRYPTION_KEY: ${{ inputs.encryption_key }}
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}

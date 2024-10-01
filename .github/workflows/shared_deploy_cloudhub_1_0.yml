@@ -15,6 +15,11 @@ on:
         type: string
         required: true
         default: 4.4.0
+      release_channel:
+        description: Release Channel (NONE, EDGE, LTS)
+        type: string
+        required: false
+        default: 'NONE'
       maven_settings_path:
         description: Maven settings file path
         type: string
@@ -123,6 +128,7 @@ jobs:
           use_artifact: false
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
+          release_channel: ${{ inputs.release_channel }}
           encryption_key: ${{ secrets.ENCRYPTION_KEY }}
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}

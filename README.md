@@ -283,6 +283,10 @@ Action to deploy to CloudHub 1.0. See [deploy_cloudhub_1_0/action.yml](deploy_cl
     # Required
     mule_runtime_version: 4.4.0
 
+    # Release channel
+    # Default: NONE
+    release_channel: NONE
+
     # Mule environment
     # Default: production
     mule_environment: production
@@ -337,6 +341,7 @@ jobs:
           business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
           cloudhub_region: ${{ secrets.CLOUDHUB_REGION }}
           mule_runtime_version: ${{ secrets.MULE_VERSION }}
+          release_channel: ${{ secrets.RELEASE_CHANNEL }}
           mule_environment: ${{ secrets.MULE_ENVIRONMENT }}
           application_name: ${{ secrets.APPLICATION_NAME }}
           connected_app_client_id: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
@@ -592,6 +597,10 @@ Create a new environment for deployment and set the needed environment variables
     # Default: 4.4.0
     # Required
     mule_runtime_version: 4.4.0
+
+    # Release channel
+    # Default: NONE
+    release_channel: NONE
 
     # Maven settings file path
     # Required
