@@ -17,6 +17,10 @@ on:
         type: number
         required: false
         default: 15
+      java_version:
+        description: The Java version used to set up the Mulesoft environment.
+        type: number
+        required: false
     secrets:
       NEXUS_USERNAME:
         required: true
@@ -46,6 +50,8 @@ jobs:
 
       - name: Set up Mulesoft environment
         uses: nimblehq/mulesoft-actions/setup@v1.12.0
+        with:
+          java_version: ${{ inputs.java_version }}
 
       - name: Run MUnit tests
         uses: nimblehq/mulesoft-actions/test@v1.12.0

@@ -17,6 +17,10 @@ on:
         type: number
         required: false
         default: 15
+      java_version:
+        description: The Java version used to set up the Mulesoft environment.
+        type: number
+        required: false
     secrets:
       CONTD_APP_CLIENT_ID:
         required: true
@@ -47,6 +51,8 @@ jobs:
 
       - name: Set up Mulesoft environment
         uses: nimblehq/mulesoft-actions/setup@v1.14.0
+        with:
+          java_version: ${{ inputs.java_version }}
 
       - name: Build with Maven
         uses: nimblehq/mulesoft-actions/build@v1.14.0
