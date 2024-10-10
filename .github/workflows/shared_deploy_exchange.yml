@@ -50,12 +50,12 @@ jobs:
           cat pom.xml
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1.14.0
+        uses: nimblehq/mulesoft-actions/setup@v1.16.0
         with:
           java_version: ${{ inputs.java_version }}
 
       - name: Build with Maven
-        uses: nimblehq/mulesoft-actions/build@v1.14.0
+        uses: nimblehq/mulesoft-actions/build@v1.16.0
         id: build
         with:
           use_artifacts: false
@@ -67,7 +67,7 @@ jobs:
           maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to Anypoint Exchange
-        uses: nimblehq/mulesoft-actions/deploy_exchange@v1.14.0
+        uses: nimblehq/mulesoft-actions/deploy_exchange@v1.16.0
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
