@@ -25,7 +25,7 @@ runs:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
       run: |
-        api-catalog publish-asset -v --json -d catalog.yaml \
+        api-catalog publish-asset --json -d catalog.yaml \
           --organization="$ORG_ID" \
           --client_id="$CONNECTED_APP_CLIENT_ID" \
           --client_secret="$CONNECTED_APP_CLIENT_SECRET"

@@ -31,7 +31,7 @@ runs:
           --client_secret="$CONNECTED_APP_CLIENT_SECRET")
 
         echo "$output"
-        
+
         if echo "$output" | grep -E -q "Successfully cataloged|API successfully published"; then
           echo "Publishing successful."
         else
