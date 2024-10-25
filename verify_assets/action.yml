@@ -25,7 +25,15 @@ runs:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
       run: |
-        api-catalog publish-asset --json -d catalog.yaml \
+        output=$(api-catalog publish-asset --json -d catalog.yaml \
           --organization="$ORG_ID" \
           --client_id="$CONNECTED_APP_CLIENT_ID" \
-          --client_secret="$CONNECTED_APP_CLIENT_SECRET"
+          --client_secret="$CONNECTED_APP_CLIENT_SECRET")
+        echo "$output"
+        echo "api_publish_output=$output" >> $GITHUB_OUTPUT
+
+    - name: Process Output
+      shell: bash
+      run: |
+        echo "Processing the output from Publish API docs step..."
+        echo "${{ steps.publish_step.outputs.api_publish_output }}"
