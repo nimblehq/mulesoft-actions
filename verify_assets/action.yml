@@ -25,7 +25,7 @@ runs:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
       run: |
-        api-catalog publish-asset --json -d catalog.yaml \
+        api-catalog publish-asset -d catalog.yaml \
           --organization="$ORG_ID" \
           --client_id="$CONNECTED_APP_CLIENT_ID" \
           --client_secret="$CONNECTED_APP_CLIENT_SECRET"
@@ -49,4 +49,14 @@ runs:
       shell: bash
       run: |
         echo "Processing the output from Publish API docs step..."
-        echo "${{ steps.publish_step.outputs.api_publish_output }}"
+
+        # Extract the status
+        STATUS=$(echo '${{ steps.publish_step.outputs.api_publish_output }}' | jq -r '.status')
+
+        # Check if the status is FAILED
+        if [[ "$STATUS" == "FAILED" ]]; then
+          echo "The publish action failed with STATUS: $STATUS. Exiting with status 1."
+          exit 1
+        else
+          echo "The publish action succeeded with STATUS: $STATUS."
+        fi
