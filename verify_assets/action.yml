@@ -20,6 +20,7 @@ runs:
 
     - name: Publish API docs to Anypoint Exchange
       shell: bash
+      id: publish_step
       env:
         ORG_ID: ${{ inputs.org_id }}
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
