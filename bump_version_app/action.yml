@@ -30,7 +30,7 @@ runs:
       with:
         assignees: ${{ inputs.assignees }}
         token: ${{ inputs.github_token }}
-        commit-message: [skip ci] Bump version to ${{ inputs.new_version }}
+        commit-message: "[skip ci] Bump version to ${{ inputs.new_version }}"
         committer: ${{ inputs.committer }}
         branch: chore/bump-version-to-${{ inputs.new_version }}
         delete-branch: true
