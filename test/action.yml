@@ -49,18 +49,18 @@ runs:
         BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
         JAVA_TOOL_OPTIONS: ${{ env.JAVA_TOOL_OPTIONS }}
 
-    - name: Upload MUnit reports
+    - name: Upload MUnit coverage reports
       uses: actions/upload-artifact@v4
       if: inputs.upload_coverage_reports == 'true'
       with:
-        name: munit-test-reports
+        name: munit-test-coverage-reports
         path: target/site/munit/coverage/
         retention-days: ${{ inputs.retention_days }}
 
-    - name: Upload MUnit Output
+    - name: Upload MUnit output
       uses: actions/upload-artifact@v4
       with:
-        name: munit-test-output
+        name: munit-test-log-output
         path: munit-test-output.log
         retention-days: ${{ inputs.retention_days }}
 
