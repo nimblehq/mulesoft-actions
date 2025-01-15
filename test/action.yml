@@ -64,10 +64,14 @@ runs:
         path: munit-test-output.log
         retention-days: ${{ inputs.retention_days }}
 
+    - name: Load the MUnit log to StdOut
+      shell: bash
+      run: cat munit-test-output.log
+
     - name: Check for no variable for RemoveFlowVariableProcessor in the log
+      shell: bash
       run: |
         if grep -q "Check the 'variableName' parameter in the 'remove-variable' component" munit-test-output.log; then
           echo "**Error**: One of the variables is invalid for RemoveFlowVariableProcessor. Please check the 'munit-test-output.log' file and search for the term 'There is no variable named' to locate the issue."
           exit 1
         fi
-      shell: bash
