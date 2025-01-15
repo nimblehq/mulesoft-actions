@@ -35,10 +35,10 @@ runs:
   steps:
     - name: Increase JAVA HEAP size
       shell: bash
-      run: echo "JAVA_TOOL_OPTIONS=-Xmx5g -Xms1g" >> $GITHUB_ENV
+      run: echo "JAVA_TOOL_OPTIONS=-Xmx5g -Xms2g" >> $GITHUB_ENV
 
     - name: Test with Maven
-      run: mvn test --settings ${{ inputs.maven_settings_path }} -DsecuredKey=${ENCRYPTION_KEY}
+      run: mvn test --settings ${{ inputs.maven_settings_path }} -DsecuredKey=${ENCRYPTION_KEY} > munit-test-output.log 2>&1
       shell: bash
       env:
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
@@ -56,3 +56,18 @@ runs:
         name: munit-test-reports
         path: target/site/munit/coverage/
         retention-days: ${{ inputs.retention_days }}
+
+    - name: Upload MUnit Output
+      uses: actions/upload-artifact@v4
+      with:
+        name: munit-test-output
+        path: munit-test-output.log
+        retention-days: ${{ inputs.retention_days }}
+
+    - name: Check for no variable for RemoveFlowVariableProcessor in the log
+      run: |
+        if grep -q "Check the 'variableName' parameter in the 'remove-variable' component" munit-test-output.log; then
+          echo "Error: No variable found for RemoveFlowVariableProcessor. Please check the `munit-test-output.log` and search with `There is no variable named` term from the log."
+          exit 1
+        fi
+      shell: bash
