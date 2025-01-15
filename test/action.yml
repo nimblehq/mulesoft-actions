@@ -13,18 +13,18 @@ inputs:
     default: .maven/settings.xml
   upload_coverage_reports:
     description: Upload MUnit reports to GitHub Actions Artifacts
-    default: 'true'
+    default: "true"
   retention_days:
     description: Artifact retention days
-    default: '1'
+    default: "1"
   encryption_key:
     description: Encryption key for secure properties
     required: true
   connected_app_client_id:
-    description:  CloudHub connected app client ID
+    description: CloudHub connected app client ID
     required: false
   connected_app_client_secret:
-    description:  CloudHub connected app client secret
+    description: CloudHub connected app client secret
     required: false
   business_group_id:
     description: Business group ID
@@ -67,7 +67,7 @@ runs:
     - name: Check for no variable for RemoveFlowVariableProcessor in the log
       run: |
         if grep -q "Check the 'variableName' parameter in the 'remove-variable' component" munit-test-output.log; then
-          echo "\n**Error**: One of the variables is invalid for RemoveFlowVariableProcessor. Please check the 'munit-test-output.log' file and search for the term 'There is no variable named' to locate the issue."
+          echo "**Error**: One of the variables is invalid for RemoveFlowVariableProcessor. Please check the 'munit-test-output.log' file and search for the term 'There is no variable named' to locate the issue."
           exit 1
         fi
       shell: bash
