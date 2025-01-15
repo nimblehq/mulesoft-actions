@@ -67,7 +67,7 @@ runs:
     - name: Check for no variable for RemoveFlowVariableProcessor in the log
       run: |
         if grep -q "Check the 'variableName' parameter in the 'remove-variable' component" munit-test-output.log; then
-          echo "Error: No variable found for RemoveFlowVariableProcessor. Please check the `munit-test-output.log` and search with `There is no variable named` term from the log."
+          echo "\n**Error**: One of the variables is invalid for RemoveFlowVariableProcessor. Please check the 'munit-test-output.log' file and search for the term 'There is no variable named' to locate the issue."
           exit 1
         fi
       shell: bash
