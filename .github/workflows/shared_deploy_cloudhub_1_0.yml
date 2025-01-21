@@ -39,6 +39,11 @@ on:
         type: string
         required: false
         default: 'OFF'
+      intentional_http_log_level:
+        description: Intentionally or manually added HTTP Log Level (OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL)
+        type: string
+        required: false
+        default: 'OFF'
       main_api_interface_path:
         description: Main APIKit interface path
         type: string
@@ -137,3 +142,4 @@ jobs:
           number_of_workers: ${{ inputs.number_of_workers }}
           worker_type: ${{ inputs.worker_type }}
           http_log_level: ${{ inputs.http_log_level }}
+          intentional_http_log_level: ${{ inputs.intentional_http_log_level }}
