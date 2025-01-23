@@ -39,6 +39,11 @@ on:
         type: string
         required: false
         default: 'OFF'
+      intentional_http_log_level:
+        description: Intentionally or manually added HTTP Log Level (OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL)
+        type: string
+        required: false
+        default: 'OFF'
       main_api_interface_path:
         description: Main APIKit interface path
         type: string
@@ -116,7 +121,7 @@ jobs:
           maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.16.0
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.20.0
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
@@ -137,3 +142,4 @@ jobs:
           number_of_workers: ${{ inputs.number_of_workers }}
           worker_type: ${{ inputs.worker_type }}
           http_log_level: ${{ inputs.http_log_level }}
+          intentional_http_log_level: ${{ inputs.intentional_http_log_level }}

@@ -67,6 +67,10 @@ inputs:
     description: HTTP Log Level (OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL)
     required: false
     default: 'OFF'
+  intentional_http_log_level:
+    description: Intentionally or manually added HTTP Log Level (OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL)
+    required: false
+    default: 'OFF'
 
 runs:
   using: composite
@@ -99,3 +103,4 @@ runs:
         NUMBER_OF_WORKERS: ${{ inputs.number_of_workers }}
         WORKER_TYPE: ${{ inputs.worker_type }}
         HTTP_LOG_LEVEL: ${{ inputs.http_log_level }}
+        INTENTIONAL_HTTP_LOG_LEVEL: ${{ inputs.intentional_http_log_level }}
