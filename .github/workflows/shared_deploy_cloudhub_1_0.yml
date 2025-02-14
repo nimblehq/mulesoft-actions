@@ -44,10 +44,11 @@ on:
         type: string
         required: false
         default: 'OFF'
-      main_api_interface_path:
-        description: Main APIKit interface path
-        type: string
+      disable_log4j2_file_appender:
+        description: Disable Log4j2 File Appender
+        type: boolean
         required: false
+        default: false
       timeout_minutes:
         description: The maximum number of minutes to let a job run before GitHub automatically cancels it.
         type: number
@@ -88,20 +89,12 @@ jobs:
         with:
           ref: ${{ inputs.checkout_ref }}
 
-      # Remove when switching to the new Exchange - BUSINESS_GROUP_ID_GLOBAL_2 completely for all ENV (DEV, STAGING, PROD)
-      - name: Modify groupId in pom.xml
+      - name: Comment out Log4j2 File Appender
+        if: inputs.disable_log4j2_file_appender == 'true'
         shell: bash
         run: |
-          perl -0777 -pe 's/<groupId>[0-9a-fA-F\-]+<\/groupId>/<groupId>${{ secrets.BUSINESS_GROUP_ID }}<\/groupId>/g' -i.bak pom.xml
-          cat pom.xml
-
-      # Remove when switching to the new Exchange - BUSINESS_GROUP_ID_GLOBAL_2 completely for all ENV (DEV, STAGING, PROD)
-      - name: Modify groupId in Main API Interface
-        if: ${{ inputs.main_api_interface_path }}
-        shell: bash
-        run: |
-          perl -0777 -pe 's/resource::[0-9a-fA-F\-]+/resource::${{ secrets.BUSINESS_GROUP_ID }}/' -i.bak ${{ inputs.main_api_interface_path }}
-          cat ${{ inputs.main_api_interface_path }}
+          perl -0777 -pe 's/<AppenderRef ref="file" \/>/<!-- <AppenderRef ref="file" \/> -->/g' -i.bak src/main/resources/log4j2.xml
+          cat src/main/resources/log4j2.xml
 
       - name: Set up Mulesoft environment
         uses: nimblehq/mulesoft-actions/setup@v1.16.0
