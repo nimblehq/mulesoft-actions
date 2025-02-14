@@ -90,7 +90,7 @@ jobs:
           ref: ${{ inputs.checkout_ref }}
 
       - name: Comment out Log4j2 File Appender
-        if: inputs.disable_log4j2_file_appender == 'true'
+        if: inputs.disable_log4j2_file_appender == true
         shell: bash
         run: |
           perl -0777 -pe 's/<AppenderRef ref="file" \/>/<!-- <AppenderRef ref="file" \/> -->/g' -i.bak src/main/resources/log4j2.xml
