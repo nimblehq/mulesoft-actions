@@ -67,11 +67,13 @@ jobs:
           maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to Anypoint Exchange
-        uses: nimblehq/mulesoft-actions/deploy_exchange@v1.16.0
+        uses: nimblehq/mulesoft-actions/deploy_exchange@v1.22.0
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
+          nexus_username: ${{ secrets.NEXUS_USERNAME }}
+          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
           mule_runtime_version: ${{ inputs.mule_runtime_version }}
