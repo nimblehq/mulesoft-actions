@@ -69,6 +69,8 @@ on:
         required: false
       BUSINESS_GROUP_ID:
         required: true
+      SECONDARY_BUSINESS_GROUP_ID:
+        required: false
       ENCRYPTION_KEY:
         required: true
       NEXUS_USERNAME:

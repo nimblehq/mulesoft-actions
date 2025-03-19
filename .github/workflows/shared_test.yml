@@ -34,6 +34,8 @@ on:
         required: false
       BUSINESS_GROUP_ID:
         required: false
+      SECONDARY_BUSINESS_GROUP_ID:
+        required: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -64,3 +66,4 @@ jobs:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
           business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
+          secondary_business_group_id: ${{ secrets.SECONDARY_BUSINESS_GROUP_ID }}

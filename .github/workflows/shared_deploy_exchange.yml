@@ -28,6 +28,8 @@ on:
         required: true
       BUSINESS_GROUP_ID:
         required: true
+      SECONDARY_BUSINESS_GROUP_ID:
+        required: false
       NEXUS_USERNAME:
         required: false
       NEXUS_PASSWORD:
@@ -73,6 +75,7 @@ jobs:
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
           maven_settings_path: ${{ inputs.maven_settings_path }}
           business_group_id: ${{ secrets.BUSINESS_GROUP_ID }}
+          secondary_business_group_id: ${{ secrets.SECONDARY_BUSINESS_GROUP_ID }}
           nexus_username: ${{ secrets.NEXUS_USERNAME }}
           nexus_password: ${{ secrets.NEXUS_PASSWORD }}
           mule_file_path: ${{ steps.build.outputs.mule_file_path }}
