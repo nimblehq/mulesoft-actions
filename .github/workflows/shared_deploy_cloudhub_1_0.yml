@@ -99,12 +99,12 @@ jobs:
           cat src/main/resources/log4j2.xml
 
       - name: Set up Mulesoft environment
-        uses: nimblehq/mulesoft-actions/setup@v1.16.0
+        uses: nimblehq/mulesoft-actions/setup@v1.23.0
         with:
           java_version: ${{ inputs.java_version }}
 
       - name: Build with Maven
-        uses: nimblehq/mulesoft-actions/build@v1.16.0
+        uses: nimblehq/mulesoft-actions/build@v1.23.0
         id: build
         with:
           use_artifacts: false
@@ -116,7 +116,7 @@ jobs:
           maven_settings_path: ${{ inputs.maven_settings_path }}
 
       - name: Deploy to CloudHub
-        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.20.0
+        uses: nimblehq/mulesoft-actions/deploy_cloudhub_1_0@v1.23.0
         with:
           connected_app_client_id: ${{ secrets.CONTD_APP_CLIENT_ID }}
           connected_app_client_secret: ${{ secrets.CONTD_APP_CLIENT_SECRET }}
