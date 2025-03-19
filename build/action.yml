@@ -18,6 +18,9 @@ inputs:
   business_group_id:
     description: Business group ID
     required: false
+  secondary_business_group_id:
+    description: Secondary business group ID
+    required: false
   nexus_username:
     description: Nexus username
     required: false
@@ -51,6 +54,7 @@ runs:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
         BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
+        SECONDARY_BUSINESS_GROUP_ID: ${{ inputs.secondary_business_group_id }}
         NEXUS_USERNAME: ${{ inputs.nexus_username }}
         NEXUS_PASSWORD: ${{ inputs.nexus_password }}
         JAVA_TOOL_OPTIONS: ${{ env.JAVA_TOOL_OPTIONS }}

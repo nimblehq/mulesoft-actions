@@ -28,6 +28,9 @@ inputs:
   business_group_id:
     description: Business group ID
     required: true
+  secondary_business_group_id:
+    description: Secondary business group ID
+    required: false
   cloudhub_region:
     description: CloudHub region
     required: true
@@ -93,6 +96,7 @@ runs:
         PLATFORM_CLIENT_SECRET: ${{ inputs.platform_client_secret }}
         CLOUDHUB_ENVIRONMENT: ${{ inputs.cloudhub_environment }}
         BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
+        SECONDARY_BUSINESS_GROUP_ID: ${{ inputs.secondary_business_group_id }}
         CLOUDHUB_REGION: ${{ inputs.cloudhub_region }}
         CLOUDHUB_APPLICATION_NAME: ${{ inputs.cloudhub_application_name }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
