@@ -16,6 +16,12 @@ inputs:
   mule_file_path:
     description: Mule file path
     required: true
+  nexus_username:
+    description: Nexus username
+    required: false
+  nexus_password:
+    description: Nexus password
+    required: false
   mule_runtime_version:
     description: Mule runtime version
     required: true
@@ -31,5 +37,7 @@ runs:
       env:
         CONNECTED_APP_CLIENT_ID: ${{ inputs.connected_app_client_id }}
         CONNECTED_APP_CLIENT_SECRET: ${{ inputs.connected_app_client_secret }}
+        NEXUS_USERNAME: ${{ inputs.nexus_username }}
+        NEXUS_PASSWORD: ${{ inputs.nexus_password }}
         MULE_RUNTIME_VERSION: ${{ inputs.mule_runtime_version }}
         BUSINESS_GROUP_ID: ${{ inputs.business_group_id }}
